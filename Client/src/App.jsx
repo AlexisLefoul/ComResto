@@ -1,7 +1,15 @@
 import { useState } from "react";
 import logo from "./assets/logo.png";
-import Card from './components/Card'
+import Card from "./components/Card";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./style/style.css";
 
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
 
 function App() {
   return (
