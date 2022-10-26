@@ -1,39 +1,44 @@
 import { useState } from "react";
-import logo from "./assets/logo.png";
-import Card from "./components/Card";
 import React from "react";
-import ReactDOM from "react-dom/client";
+import { createRoot } from "react-dom/client";
 import "./style/style.css";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import logo from "./assets/logo.png";
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+
+import CarteMenu from "./pages/CarteMenu";
+import GestionStock from "./pages/GestionStock";
+
+const rootElement = document.getElementById("root");
+const root = createRoot(rootElement);
+
+const App = () => (
+  <>
+    <div className="header">
+      <div className="c-logo">
+        <img src={logo} className="logo" alt="logo" />
+      </div>
+    </div>
+    <div>
+      <h1>React Router Example</h1>
+      <ul role="nav">
+        <li>
+          <Link to="/cartemenu">Carte des plats</Link>
+        </li>
+        <li>
+          <Link to="/gestionstock">Gestion des stocks</Link>
+        </li>
+      </ul>
+    </div>
+  </>
 );
 
-function App() {
-  return (
-    <>
-      <div className="header">
-        <div className="c-logo">
-          <img src={logo} className="logo" alt="logo" />
-        </div>
-      </div>
-      <div className="nav">
-        <nav>
-          <ul>
-            <li>
-              <a href="#">Aliments</a>
-            </li>
-            <li>
-              <a href="#">Plats</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-      <Card></Card>
-    </>
-  );
-}
-
-export default App;
+root.render(
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<App />} />
+      <Route path="cartemenu" element={<CarteMenu />} />
+      <Route path="gestionstock" element={<GestionStock />} />
+    </Routes>{" "}
+  </BrowserRouter>
+);
