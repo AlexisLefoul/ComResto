@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Card() {
+function CardPlat(props) {
   return (
     <>
       <article>
@@ -14,11 +14,15 @@ function Card() {
           <p>8 €</p>
         </div>
         <div>
-          <button>Commander</button>
+          {props.isAdmin ? (
+            <button>Modifier</button>
+          ) : (
+            <button>Commander</button>
+          )}
         </div>
       </article>
     </>
   );
 }
 
-export default Card;
+export default CardPlat;

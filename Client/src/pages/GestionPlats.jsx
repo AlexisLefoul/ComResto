@@ -1,10 +1,12 @@
+import React from "react";
+import ReactDOM from "react-dom/client";
 import { useState } from "react";
 import logo from "../assets/logo.png";
-import CardPlat from "../components/CardPlat";
-import React from "react";
 import { Link } from "react-router-dom";
 
-function CarteMenu() {
+import CardPlat from "../components/CardPlat";
+
+function GestionPlats() {
   const result = { data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] };
   return (
     <>
@@ -19,7 +21,7 @@ function CarteMenu() {
         <nav>
           <ul>
             <li>
-              <a>Plats</a>
+              <a href="/gestionplats">Plats</a>
             </li>
             <li>
               <select>
@@ -31,13 +33,16 @@ function CarteMenu() {
                 <option value="">Dessert</option>
               </select>
             </li>
+            <li>
+              <a href="/gestionaliments">Aliments</a>
+            </li>
           </ul>
         </nav>
       </div>
       <div className="global">
         <div className="content-box">
           {result?.data?.map((rec) => (
-            <CardPlat isAdmin={false}></CardPlat>
+            <CardPlat isAdmin={true}></CardPlat>
           ))}
         </div>
       </div>
@@ -45,4 +50,4 @@ function CarteMenu() {
   );
 }
 
-export default CarteMenu;
+export default GestionPlats;

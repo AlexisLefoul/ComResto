@@ -5,9 +5,10 @@ import "./style/style.css";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import logo from "./assets/logo.png";
 
-
 import CarteMenu from "./pages/CarteMenu";
 import GestionStock from "./pages/GestionStock";
+import GestionAliments from "./pages/GestionAliments";
+import GestionPlats from "./pages/GestionPlats";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -39,6 +40,8 @@ root.render(
       <Route path="/" element={<App />} />
       <Route path="cartemenu" element={<CarteMenu />} />
       <Route path="gestionstock" element={<GestionStock />} />
-    </Routes>{" "}
+      <Route path="gestionaliments" element={<GestionAliments />} />
+      <Route path="gestionplats" element={<GestionPlats />} />
+    </Routes>
   </BrowserRouter>
 );
