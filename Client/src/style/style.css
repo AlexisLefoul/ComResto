@@ -58,17 +58,28 @@
 
 nav {
   margin: auto;
+  width: 100%;
 }
 
 nav > ul {
-  margin-left: -450px !important;
-  width: 100px;
+  margin-left: 410px !important;
+  width: 25%;
 }
 
-li {
+.li-onclick {
   border-bottom: 2px solid transparent;
   cursor: pointer;
   transition: border-color 0.25s;
+  margin-right: 50px !important;
+  height: 40px !important;
+  padding: 0 !important;
+}
+
+.li-onclick:hover {
+  border-color: #2a2a2a;
+}
+
+.li-notonclick {
   margin-right: 50px !important;
   height: 40px !important;
   padding: 0 !important;
@@ -81,10 +92,19 @@ ul > li > a {
 }
 
 select {
-  width: 200px;
+  width: 230px;
   height: 40px;
   padding: 5px;
   color: #2a2a2a;
+}
+
+.ul-filtre {
+  margin-left: 0 !important;
+  margin-right: 200px;
+}
+
+.li-filter {
+  padding: 0;
 }
 
 .global {
@@ -136,6 +156,10 @@ article > div > button {
 
 .center {
   text-align: center;
+}
+
+.isAliment {
+  display: none;
 }
 /* 
 .main {
