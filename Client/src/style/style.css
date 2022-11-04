@@ -25,6 +25,7 @@
   --h2-color: rgba(29, 29, 29, 0.87);
   --form-element-background-color: #fff;
   --form-element-border-color: rgba(29, 29, 29, 0.87);
+  --form-element-disabled-background-color: rgba(151, 150, 150, 0.425);
 }
 
 .header {
@@ -46,6 +47,15 @@
   padding: 1.5em;
   will-change: filter;
   border-radius: 40px;
+}
+
+.logo-add {
+  width: 40px;
+  cursor: pointer;
+}
+
+.logo-add:hover {
+  width: 42px;
 }
 
 .nav {
@@ -79,6 +89,10 @@ nav > ul {
   border-color: #2a2a2a;
 }
 
+.active {
+  border-color: #2a2a2a;
+}
+
 .li-notonclick {
   margin-right: 50px !important;
   height: 40px !important;
@@ -105,6 +119,12 @@ select {
 
 .li-filter {
   padding: 0;
+}
+
+.li-add {
+  padding: 0;
+  margin-top: 5px;
+  margin-left: 50px;
 }
 
 .global {
@@ -160,6 +180,102 @@ article > div > button {
 
 .isAliment {
   display: none;
+}
+
+.modal {
+  overflow: visible;
+}
+
+.close {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.btns {
+  display: flex;
+  flex-direction: row;
+}
+
+.btns > button {
+  margin: 10px;
+}
+
+input {
+  color: #2a2a2a;
+}
+
+label {
+  width: 90%;
+  margin: auto;
+}
+
+.qtn {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 30px;
+}
+
+.text-ali {
+  font-weight: 600;
+  --color: var(--muted-color);
+  margin: auto;
+  margin-right: 5px;
+}
+
+.gp-ali {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+}
+
+.qte {
+  margin: auto;
+  font-size: 18px;
+  margin-left: 0;
+  --font-weight: 500;
+}
+
+.basic-single {
+  margin-bottom: 10px;
+}
+
+.basic-single > .select__control {
+  border-color: var(--form-element-border-color) !important;
+}
+
+.basic-single > .select__control > .select__value-container {
+  height: 50px;
+}
+
+.basic-single
+  > .select__control
+  > .select__value-container
+  > .select__input-container {
+  height: 50px;
+}
+
+.edit {
+  margin-right: auto;
+  height: 20px;
+}
+
+.edit:hover {
+  height: 22px;
+}
+
+.add {
+  margin-right: auto;
+  height: 20px;
+}
+
+.add:hover {
+  height: 22px;
+}
+
+.ctn-add {
+  display: flex;
+  flex-direction: row;
+  margin-left: 21px;
 }
 /* 
 .main {
