@@ -3,8 +3,8 @@ import { useState } from "react";
 function ModalUpdateA(props) {
   const [itemA, setItemA] = useState({
     nom: props.param.nom,
+    quantity: props.param.quantite,
     type: props.param.type,
-    quantity: props.param.quantity,
   });
 
   function handleChangeA(event) {
@@ -69,25 +69,13 @@ function ModalUpdateA(props) {
                       id="nom"
                       name="nom"
                       placeholder="Nom"
-                      value={itemA.nom}
+                      value={props.param.nom}
                       onChange={handleChangeA}
                       required
                       disabled
                     />
                   </label>
                 </div>
-                <label htmlFor="type">
-                  <input
-                    type="text"
-                    id="type"
-                    name="type"
-                    placeholder="Type"
-                    value={itemA.type}
-                    onChange={handleChangeA}
-                    required
-                    style={{ display: "none" }}
-                  />
-                </label>
               </>
             ) : (
               <>
@@ -98,7 +86,7 @@ function ModalUpdateA(props) {
                       id="nom"
                       name="nom"
                       placeholder="Nom"
-                      value={itemA.nom}
+                      value={props.param.nom}
                       onChange={handleChangeA}
                       required
                     />
@@ -110,7 +98,7 @@ function ModalUpdateA(props) {
                     id="type"
                     name="type"
                     placeholder="Type"
-                    value={itemA.type}
+                    value={props.param.type}
                     onChange={handleChangeA}
                     required
                   />
@@ -123,7 +111,7 @@ function ModalUpdateA(props) {
                 id="quantity"
                 name="quantity"
                 placeholder="Quantité"
-                value={itemA.quantity}
+                value={props.param.quantite}
                 onChange={handleChangeA}
                 required
               />

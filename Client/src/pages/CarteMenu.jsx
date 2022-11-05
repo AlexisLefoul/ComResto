@@ -1,19 +1,31 @@
 import { useState } from "react";
 import React from "react";
 
+import API from "../app";
 import CardPlat from "../components/CardPlat";
 import HeaderNav from "../components/HeaderNav";
 
 function CarteMenu() {
-  const result = { data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] };
   const isAdmin = false;
+  const [plats, setPlats] = React.useState(null);
+
+  React.useEffect(() => {
+    async function getPost() {
+      const response = await API.get("plats");
+      setPlats(response.data);
+    }
+    getPost();
+  }, []);
+
+  if (!plats) return null;
+
   return (
     <>
       <HeaderNav isAdmin={isAdmin}></HeaderNav>
       <div className="global">
         <div className="content-box">
-          {result?.data?.map((rec) => (
-            <CardPlat isAdmin={isAdmin}></CardPlat>
+          {plats?.map((rec) => (
+            <CardPlat isAdmin={isAdmin} key={rec.id} plat={rec}></CardPlat>
           ))}
         </div>
       </div>

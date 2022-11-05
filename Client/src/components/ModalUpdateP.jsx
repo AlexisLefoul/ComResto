@@ -4,15 +4,28 @@ import logo_add from "../assets/more.svg";
 import ModalUpdateA from "./ModalUpdateA";
 
 function ModalUpdateP(props) {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   var idModal = "updateAliment";
+  const [open, setOpen] = useState(false);
+  const [updateAli, setUpadateAli] = useState({
+    id: 0,
+    nom: "",
+    quantite: 0,
+  });
+
+  function handleOpen(i) {
+    setOpen(true);
+    setUpadateAli({
+      id: i._id,
+      nom: i.nom,
+      quantite: i.quantite,
+    });
+  }
+  const handleClose = () => setOpen(false);
 
   const [itemP, setItemP] = useState({
     nom: props.param.nom,
-    price: props.param.price,
-    alts: props.param.alts,
+    price: props.param.prix,
+    alts: props.param.aliments,
   });
 
   function handleChangeP(event) {
@@ -40,7 +53,7 @@ function ModalUpdateP(props) {
     { value: "slate", label: "Slate" },
     { value: "silver", label: "Silver" },
   ];
-
+  
   return (
     <>
       <dialog
@@ -85,23 +98,16 @@ function ModalUpdateP(props) {
                 <>
                   <div className="gp-ali" key={ali.id}>
                     <h5 className="text-ali">{ali.nom}</h5>
-                    <h5 className="text-ali">{ali.quantity}</h5>
+                    <h5 className="text-ali">{ali.quantite}</h5>
                     <h6 className="qte">qté</h6>
                     <img
                       aria-label="Edit"
                       className="edit"
                       src={logo_edit}
                       data-target={props.idModal}
-                      onClick={handleOpen}
+                      onClick={() => handleOpen(ali)}
                     ></img>
                   </div>
-                  <ModalUpdateA
-                    idModal={idModal}
-                    isOpen={open}
-                    handleClose={handleClose}
-                    param={ali}
-                    isUpdateInPlat={true}
-                  ></ModalUpdateA>
                 </>
               ))}
             </label>
@@ -130,6 +136,13 @@ function ModalUpdateP(props) {
           </form>
         </article>
       </dialog>
+      <ModalUpdateA
+        idModal={idModal}
+        isOpen={open}
+        handleClose={handleClose}
+        param={updateAli}
+        isUpdateInPlat={true}
+      ></ModalUpdateA>
     </>
   );
 }

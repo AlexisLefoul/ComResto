@@ -19,6 +19,19 @@ const app = express();
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(function (request, response, next) {
+  response.header("Access-Control-Allow-Origin", request.headers.origin);
+  response.header(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+  );
+  response.header(
+    "Access-Control-Allow-Methods",
+    "GET,HEAD,POST,PUT,DELETE,OPTIONS"
+  );
+  response.header("Access-Control-Allow-Credentials", "true");
+  next();
+});
 
 // Default
 app.get("/", (req, res) => res.send("🏠"));

@@ -17,7 +17,7 @@ function CardAliment(props) {
         </div>
         <div className="qtn">
           <h4 style={{ margin: 'auto', color: '#2a2a2a', marginRight: 15 }}>Quantités :</h4>
-          <p style={{ margin: 'auto', marginLeft: 0 }}>{props.aliment.quantity}</p>
+          <p style={{ margin: 'auto', marginLeft: 0 }}>{props.aliment.quantite}</p>
         </div>
         <div>
           <button data-target="updateAliment" onClick={handleOpen}>

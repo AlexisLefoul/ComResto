@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
+import API from "../app";
 import CardPlat from "../components/CardPlat";
 import CardAliment from "../components/CardAliment";
 import HeaderNav from "../components/HeaderNav";
@@ -22,58 +23,26 @@ function GestionStock() {
     { id: 10, nom: "Silver", quantity: 55, type: "viande" },
   ];
 
-  const resultPlats = [
-    {
-      id: 1,
-      nom: "Ocean",
-      price: 5,
-      alts: [
-        { nom: "salade", quantity: 2, id: 1 },
-        { nom: "tomate", quantity: 5, id: 2 },
-        { nom: "oignon", quantity: 1, id: 3 },
-      ],
-    },
-    {
-      id: 2,
-      nom: "Blue",
-      price: 3,
-      alts: [
-        { nom: "salade", quantity: 2, id: 11 },
-        { nom: "tomate", quantity: 5, id: 22 },
-        { nom: "oignon", quantity: 1, id: 33 },
-      ],
-    },
-    {
-      id: 3,
-      nom: "Purple",
-      price: 5,
-      alts: [
-        { nom: "salade", quantity: 2, id: 10 },
-        { nom: "tomate", quantity: 5, id: 21 },
-        { nom: "oignon", quantity: 1, id: 32 },
-      ],
-    },
-    {
-      id: 4,
-      nom: "Red",
-      price: 9,
-      alts: [
-        { nom: "salade", quantity: 2, id: 13 },
-        { nom: "tomate", quantity: 5, id: 23 },
-        { nom: "oignon", quantity: 1, id: 34 },
-      ],
-    },
-    {
-      id: 5,
-      nom: "Orange",
-      price: 45,
-      alts: [
-        { nom: "salade", quantity: 2, id: 12 },
-        { nom: "tomate", quantity: 5, id: 25 },
-        { nom: "oignon", quantity: 1, id: 36 },
-      ],
-    },
-  ];
+  const [plats, setPlats] = React.useState(null);
+  const [aliments, setAliments] = React.useState(null);
+
+  React.useEffect(() => {
+    async function getPlats() {
+      const response = await API.get("plats");
+      setPlats(response.data);
+    }
+    async function getAliments() {
+      const response = await API.get("aliments");
+      setAliments(response.data);
+    }
+    getPlats();
+    getAliments();
+  }, []);
+
+  if (!plats) return null;
+  if (!aliments) return null;
+
+  console.log(aliments);
 
   return (
     <>
@@ -85,7 +54,7 @@ function GestionStock() {
       {isAliment ? (
         <div className="global">
           <div className="content-box">
-            {resultAli?.map((rec) => (
+            {aliments?.map((rec) => (
               <CardAliment aliment={rec} key={rec.id}></CardAliment>
             ))}
           </div>
@@ -93,7 +62,7 @@ function GestionStock() {
       ) : (
         <div className="global">
           <div className="content-box">
-            {resultPlats?.map((rec) => (
+            {plats?.map((rec) => (
               <CardPlat isAdmin={isAdmin} key={rec.id} plat={rec}></CardPlat>
             ))}
           </div>

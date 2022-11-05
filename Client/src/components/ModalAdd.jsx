@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
+import logo_add from "../assets/more.svg";
 
 function ModalAdd(props) {
   const animatedComponents = makeAnimated();
@@ -49,16 +50,40 @@ function ModalAdd(props) {
               </label>
             </div>
             {props.idModal === "addPlat" ? (
-              <label>
-                Pick your favorite flavor:
-                <Select
-                  closeMenuOnSelect={false}
-                  components={animatedComponents}
-                  defaultValue={[colourOptions[4], colourOptions[5]]}
-                  isMulti
-                  options={colourOptions}
-                />
-              </label>
+              <>
+                <div className="ctn-add">
+                  <label style={{ margin: 0 }}>Incrédients :</label>
+                  <img
+                    aria-label="Add"
+                    className="add"
+                    src={logo_add}
+                    data-target={props.idModal}
+                  ></img>
+                </div>
+                <label>
+                  {itemP.alts?.map((ali) => (
+                    <>
+                      <div className="gp-ali" key={ali.id}>
+                        <h5 className="text-ali">{ali.nom}</h5>
+                        <h5 className="text-ali">{ali.quantite}</h5>
+                        <h6 className="qte">qté</h6>
+                      </div>
+                    </>
+                  ))}
+                </label>
+                <label htmlFor="price">
+                  Prix :
+                  <input
+                    type="number"
+                    id="price"
+                    name="price"
+                    placeholder="Prix"
+                    value={itemP.price}
+                    onChange={handleChangeP}
+                    required
+                  />
+                </label>
+              </>
             ) : (
               <>
                 <label htmlFor="type">
