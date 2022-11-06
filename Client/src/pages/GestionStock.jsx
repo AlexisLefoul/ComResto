@@ -10,19 +10,6 @@ function GestionStock() {
   const [isAliment, setIsAliment] = useState(false);
   const isAdmin = true;
 
-  const resultAli = [
-    { id: 1, nom: "Ocean", quantity: 5, type: "viande" },
-    { id: 2, nom: "Blue", quantity: 3, type: "viande" },
-    { id: 3, nom: "Purple", quantity: 5, type: "viande" },
-    { id: 4, nom: "Red", quantity: 9, type: "viande" },
-    { id: 5, nom: "Orange", quantity: 45, type: "viande" },
-    { id: 6, nom: "Yellow", quantity: 4, type: "viande" },
-    { id: 7, nom: "Green", quantity: 6, type: "viande" },
-    { id: 8, nom: "Forest", quantity: 3, type: "viande" },
-    { id: 9, nom: "Slate", quantity: 33, type: "viande" },
-    { id: 10, nom: "Silver", quantity: 55, type: "viande" },
-  ];
-
   const [plats, setPlats] = React.useState(null);
   const [aliments, setAliments] = React.useState(null);
 

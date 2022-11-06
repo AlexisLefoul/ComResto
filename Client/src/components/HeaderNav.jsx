@@ -5,19 +5,18 @@ import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import logo_add from "../assets/more.svg";
 
-import ModalAdd from "./ModalAdd";
+import ModalAddP from "./ModalAddP";
+import ModalAddA from "./ModalAddA";
 
 function HeaderNav(props) {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  var idModal;
-
-  if (props.isAliment) {
-    idModal = "addAliment";
-  } else {
-    idModal = "addPlat";
-  }
+  const [openA, setOpenA] = React.useState(false);
+  const handleOpenA = () => setOpenA(true);
+  const handleCloseA = () => setOpenA(false);
+  const [openP, setOpenP] = React.useState(false);
+  const handleOpenP = () => setOpenP(true);
+  const handleCloseP = () => setOpenP(false);
+  var idModalA = "addAliment";
+  var idModalP = "addPlat";
 
   return (
     <>
@@ -72,8 +71,8 @@ function HeaderNav(props) {
                     className="li-add"
                     data-tooltip="Ajouter un nouveau aliment"
                     data-placement="bottom"
-                    data-target="addAliment"
-                    onClick={handleOpen}
+                    data-target={idModalA}
+                    onClick={handleOpenA}
                   >
                     <img src={logo_add} className="logo-add" alt="logo" />
                   </li>
@@ -96,8 +95,8 @@ function HeaderNav(props) {
                     className="li-add"
                     data-tooltip="Ajouter un nouveau plat"
                     data-placement="bottom"
-                    data-target="addPlat"
-                    onClick={handleOpen}
+                    data-target={idModalP}
+                    onClick={handleOpenP}
                   >
                     <img src={logo_add} className="logo-add" alt="logo" />
                   </li>
@@ -107,11 +106,16 @@ function HeaderNav(props) {
           </ul>
         </nav>
       </div>
-      <ModalAdd
-        idModal={idModal}
-        isOpen={open}
-        handleClose={handleClose}
-      ></ModalAdd>
+      <ModalAddP
+        idModal={idModalP}
+        isOpen={openP}
+        handleClose={handleCloseP}
+      ></ModalAddP>
+      <ModalAddA
+        idModal={idModalA}
+        isOpen={openA}
+        handleClose={handleCloseA}
+      ></ModalAddA>
     </>
   );
 }

@@ -120,6 +120,7 @@ var Aliment = /** @class */ (function () {
                             quantite: body.quantite,
                             date: new Date(),
                         });
+                        console.log(body);
                         return [4 /*yield*/, aliment.save()];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
