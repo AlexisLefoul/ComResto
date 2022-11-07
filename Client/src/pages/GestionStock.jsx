@@ -28,16 +28,14 @@ function GestionStock() {
 
   if (!plats) return null;
   if (!aliments) return null;
-
-  console.log(aliments);
-
+  
   return (
     <>
       <HeaderNav
         isAdmin={isAdmin}
         setIsAliment={setIsAliment}
         isAliment={isAliment}
-        setList={getPlats}
+        setList={getAliments}
       ></HeaderNav>
       {isAliment ? (
         <div className="global">

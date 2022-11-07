@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import logo_add from "../assets/more.svg";
+import logo_reload from "../assets/reload.svg";
+
 
 import ModalAddP from "./ModalAddP";
 import ModalAddA from "./ModalAddA";
@@ -11,10 +13,7 @@ import ModalAddA from "./ModalAddA";
 function HeaderNav(props) {
   const [openA, setOpenA] = React.useState(false);
   const handleOpenA = () => setOpenA(true);
-  const handleCloseA = () => {
-    setOpenA(false);
-    props.setList();
-  };
+  const handleCloseA = () => setOpenA(false);
   const [openP, setOpenP] = React.useState(false);
   const handleOpenP = () => setOpenP(true);
   const handleCloseP = () => setOpenP(false);
@@ -82,12 +81,11 @@ function HeaderNav(props) {
                     </li>
                     <li
                       className="li-add"
-                      data-tooltip="Ajouter un nouveau aliment"
+                      data-tooltip="Recharger la liste"
                       data-placement="bottom"
-                      data-target={idModalA}
                       onClick={props.setList}
                     >
-                      <img src={logo_add} className="logo-add" alt="logo" />
+                      <img src={logo_reload} className="logo-add" alt="logo" />
                     </li>
                   </>
                 ) : null}

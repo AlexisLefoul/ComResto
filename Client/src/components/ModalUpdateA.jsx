@@ -1,48 +1,61 @@
 import { useState } from "react";
+import API from "../app";
 
 function ModalUpdateA(props) {
   const [itemA, setItemA] = useState({
     nom: props.param.nom,
-    quantity: props.param.quantite,
+    quantite: props.param.quantite,
     type: props.param.type,
   });
 
   function handleChangeA(event) {
-    if (event.target.type === "number") {
+    if (event.target.id === "quantite") {
       setItemA({
         nom: itemA.nom,
-        quantity: event.target.value,
+        quantite: event.target.value,
         type: itemA.type,
       });
     }
-    if (event.target.type === "text") {
+    if (event.target.id === "nom") {
       setItemA({
         nom: event.target.value,
-        quantity: itemA.quantity,
+        quantite: itemA.quantite,
         type: itemA.type,
       });
     }
-    if (event.target.name === "type") {
+    if (event.target.id === "type") {
       setItemA({
         nom: itemA.nom,
-        quantity: itemA.quantity,
+        quantite: itemA.quantite,
         type: event.target.value,
       });
     }
   }
 
-  const opts = [
-    { value: "ocean", label: "Ocean" },
-    { value: "blue", label: "Blue" },
-    { value: "purple", label: "Purple" },
-    { value: "red", label: "Red" },
-    { value: "orange", label: "Orange" },
-    { value: "yellow", label: "Yellow" },
-    { value: "green", label: "Green" },
-    { value: "forest", label: "Forest" },
-    { value: "slate", label: "Slate" },
-    { value: "silver", label: "Silver" },
-  ];
+  function reset() {
+    setItemA({
+      nom: props.param.nom,
+      quantite: props.param.quantite,
+      type: props.param.type,
+    });
+  }
+
+  function onClick() {
+    reset();
+    props.handleClose();
+  }
+
+  function updateAliment() {
+    API.put("aliments/update/" + props.param._id, {
+      nom: itemA.nom,
+      quantite: itemA.quantite,
+      type: itemA.type,
+    }).then((response) => {
+      setItemA(response.data);
+    });
+    reset();
+    props.handleClose();
+  }
 
   return (
     <>
@@ -56,7 +69,7 @@ function ModalUpdateA(props) {
             aria-label="Close"
             className="close"
             data-target={props.idModal}
-            onClick={props.handleClose}
+            onClick={onClick}
           ></a>
           <h2>Modifer un aliment</h2>
           <form>
@@ -69,7 +82,7 @@ function ModalUpdateA(props) {
                       id="nom"
                       name="nom"
                       placeholder="Nom"
-                      value={props.param.nom}
+                      value={itemA.nom || ""}
                       onChange={handleChangeA}
                       required
                       disabled
@@ -86,7 +99,7 @@ function ModalUpdateA(props) {
                       id="nom"
                       name="nom"
                       placeholder="Nom"
-                      value={props.param.nom}
+                      value={itemA.nom || ""}
                       onChange={handleChangeA}
                       required
                     />
@@ -98,31 +111,29 @@ function ModalUpdateA(props) {
                     id="type"
                     name="type"
                     placeholder="Type"
-                    value={props.param.type}
+                    value={itemA.type || ""}
                     onChange={handleChangeA}
                     required
                   />
                 </label>
               </>
             )}
-            <label htmlFor="quantity">
+            <label htmlFor="quantite">
               <input
                 type="number"
-                id="quantity"
-                name="quantity"
+                id="quantite"
+                name="quantite"
                 placeholder="Quantité"
-                value={props.param.quantite}
+                value={itemA.quantite || ""}
                 onChange={handleChangeA}
                 required
               />
             </label>
             <div className="btns">
-              <button type="button">Modifer</button>
-              <button
-                type="button"
-                className="secondary"
-                onClick={props.handleClose}
-              >
+              <button type="button" onClick={updateAliment}>
+                Modifer
+              </button>
+              <button type="button" className="secondary" onClick={onClick}>
                 Annuler
               </button>
             </div>
