@@ -13,6 +13,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  overflow-x: hidden;
 }
 
 [data-theme="light"],
@@ -114,7 +116,7 @@ select {
 
 .ul-filtre {
   margin-left: 0 !important;
-  margin-right: 200px;
+  margin-right: 2% !important;
 }
 
 .li-filter {

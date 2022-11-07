@@ -11,7 +11,10 @@ import ModalAddA from "./ModalAddA";
 function HeaderNav(props) {
   const [openA, setOpenA] = React.useState(false);
   const handleOpenA = () => setOpenA(true);
-  const handleCloseA = () => setOpenA(false);
+  const handleCloseA = () => {
+    setOpenA(false);
+    props.setList();
+  };
   const [openP, setOpenP] = React.useState(false);
   const handleOpenP = () => setOpenP(true);
   const handleCloseP = () => setOpenP(false);
@@ -67,15 +70,26 @@ function HeaderNav(props) {
                   </select>
                 </li>
                 {props.isAdmin ? (
-                  <li
-                    className="li-add"
-                    data-tooltip="Ajouter un nouveau aliment"
-                    data-placement="bottom"
-                    data-target={idModalA}
-                    onClick={handleOpenA}
-                  >
-                    <img src={logo_add} className="logo-add" alt="logo" />
-                  </li>
+                  <>
+                    <li
+                      className="li-add"
+                      data-tooltip="Ajouter un nouveau aliment"
+                      data-placement="bottom"
+                      data-target={idModalA}
+                      onClick={handleOpenA}
+                    >
+                      <img src={logo_add} className="logo-add" alt="logo" />
+                    </li>
+                    <li
+                      className="li-add"
+                      data-tooltip="Ajouter un nouveau aliment"
+                      data-placement="bottom"
+                      data-target={idModalA}
+                      onClick={props.setList}
+                    >
+                      <img src={logo_add} className="logo-add" alt="logo" />
+                    </li>
+                  </>
                 ) : null}
               </>
             ) : (
