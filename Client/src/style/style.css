@@ -279,6 +279,21 @@ label {
   flex-direction: row;
   margin-left: 21px;
 }
+
+.logo-supp {
+  width: 20px;
+  margin-left: 90%;
+  cursor: pointer;
+}
+
+.logo-supp:hover {
+  width: 22px;
+}
+
+.supp-nom {
+  text-align: center;
+  color: #2a2a2a;
+}
 /* 
 .main {
   width: 60%;

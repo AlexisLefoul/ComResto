@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import logo_add from "../assets/more.svg";
-import logo_reload from "../assets/reload.svg";
 
 import ModalAddP from "./ModalAddP";
 import ModalAddA from "./ModalAddA";
@@ -18,7 +17,10 @@ function HeaderNav(props) {
   };
   const [openP, setOpenP] = React.useState(false);
   const handleOpenP = () => setOpenP(true);
-  const handleCloseP = () => setOpenP(false);
+  const handleCloseP = () => {
+    setOpenP(false);
+    props.setRefresh(true);
+  };
   var idModalA = "addAliment";
   var idModalP = "addPlat";
 
@@ -65,31 +67,21 @@ function HeaderNav(props) {
                     <option defaultValue="" disabled selected hidden>
                       Filtre : Type d'aliments
                     </option>
-                    <option value="">Fruit</option>
-                    <option value="">Fromage</option>
-                    <option value="">Viande</option>
+                    {props.optsAliments?.map((opt) => (
+                      <option value={opt}>{opt}</option>
+                    ))}
                   </select>
                 </li>
                 {props.isAdmin ? (
-                  <>
-                    <li
-                      className="li-add"
-                      data-tooltip="Ajouter un nouveau aliment"
-                      data-placement="bottom"
-                      data-target={idModalA}
-                      onClick={handleOpenA}
-                    >
-                      <img src={logo_add} className="logo-add" alt="logo" />
-                    </li>
-                    <li
-                      className="li-add"
-                      data-tooltip="Recharger la liste"
-                      data-placement="bottom"
-                      onClick={() => props.setRefresh(true)}
-                    >
-                      <img src={logo_reload} className="logo-add" alt="logo" />
-                    </li>
-                  </>
+                  <li
+                    className="li-add"
+                    data-tooltip="Ajouter un nouveau aliment"
+                    data-placement="bottom"
+                    data-target={idModalA}
+                    onClick={handleOpenA}
+                  >
+                    <img src={logo_add} className="logo-add" alt="logo" />
+                  </li>
                 ) : null}
               </>
             ) : (

@@ -9,6 +9,7 @@ import HeaderNav from "../components/HeaderNav";
 function GestionStock() {
   const [isAliment, setIsAliment] = useState(false);
   const isAdmin = true;
+  var optsAliments = [];
 
   const [plats, setPlats] = React.useState(null);
   const [aliments, setAliments] = React.useState(null);
@@ -18,33 +19,51 @@ function GestionStock() {
   async function getPlats() {
     const response = await API.get("plats");
     setPlats(response.data);
+    setRefresh(false);
   }
   async function getAliments() {
     const response = await API.get("aliments");
     setAliments(response.data);
+    setRefresh(false);
   }
+
+  function getOptsAliment() {
+    aliments?.map((ali) =>
+      optsAliments.includes(ali.type) ? null : optsAliments.push(ali.type)
+    );
+    console.log(optsAliments);
+  }
+
   React.useEffect(() => {
     getPlats();
     getAliments();
   }, [refresh]);
 
+  if (aliments !== null) {
+    getOptsAliment();
+  }
+
   if (!plats) return null;
   if (!aliments) return null;
-  
+
   return (
     <>
       <HeaderNav
         isAdmin={isAdmin}
         setIsAliment={setIsAliment}
         isAliment={isAliment}
-        setList={getAliments}
         setRefresh={setRefresh}
+        optsAliments={optsAliments}
       ></HeaderNav>
       {isAliment ? (
         <div className="global">
           <div className="content-box">
             {aliments?.map((rec) => (
-              <CardAliment aliment={rec} key={rec.id}></CardAliment>
+              <CardAliment
+                aliment={rec}
+                key={rec.id}
+                setRefresh={setRefresh}
+              ></CardAliment>
             ))}
           </div>
         </div>
@@ -52,7 +71,12 @@ function GestionStock() {
         <div className="global">
           <div className="content-box">
             {plats?.map((rec) => (
-              <CardPlat isAdmin={isAdmin} key={rec.id} plat={rec}></CardPlat>
+              <CardPlat
+                isAdmin={isAdmin}
+                key={rec.id}
+                plat={rec}
+                setRefresh={setRefresh}
+              ></CardPlat>
             ))}
           </div>
         </div>

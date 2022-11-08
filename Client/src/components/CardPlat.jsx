@@ -2,15 +2,32 @@ import { useState } from "react";
 import React from "react";
 
 import ModalUpdateP from "./ModalUpdateP";
+import ModalDelete from "./ModalDelete";
+import logo_supp from "../assets/delete.svg";
 
 function CardPlat(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  var idModal = "updatePlat";
+  const [openD, setOpenD] = React.useState(false);
+  const handleOpenD = () => setOpenD(true);
+  const handleClose = () => {
+    setOpen(false);
+    setOpenD(false);
+    props.setRefresh(true);
+  };
+  var idModalUpdate = "updatePlat";
+  var idModalDelete = "deletePlat";
+
   return (
     <>
       <article>
+        {props.isAdmin ? (
+          <>
+            <div onClick={handleOpenD}>
+              <img src={logo_supp} className="logo-supp" alt="logo" />
+            </div>
+          </>
+        ) : null}
         <div>
           <hgroup>
             <h2 style={{ textAlign: "center" }}>{props.plat.nom}</h2>
@@ -41,11 +58,17 @@ function CardPlat(props) {
       </article>
 
       <ModalUpdateP
-        idModal={idModal}
+        idModal={idModalUpdate}
         isOpen={open}
         handleClose={handleClose}
         param={props.plat}
       ></ModalUpdateP>
+      <ModalDelete
+        idModal={idModalDelete}
+        isOpen={openD}
+        handleClose={handleClose}
+        param={props.plat}
+      ></ModalDelete>
     </>
   );
 }
