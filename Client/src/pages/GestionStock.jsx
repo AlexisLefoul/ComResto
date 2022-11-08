@@ -13,6 +13,8 @@ function GestionStock() {
   const [plats, setPlats] = React.useState(null);
   const [aliments, setAliments] = React.useState(null);
 
+  const [refresh, setRefresh] = useState(false);
+
   async function getPlats() {
     const response = await API.get("plats");
     setPlats(response.data);
@@ -24,7 +26,7 @@ function GestionStock() {
   React.useEffect(() => {
     getPlats();
     getAliments();
-  }, []);
+  }, [refresh]);
 
   if (!plats) return null;
   if (!aliments) return null;
@@ -36,6 +38,7 @@ function GestionStock() {
         setIsAliment={setIsAliment}
         isAliment={isAliment}
         setList={getAliments}
+        setRefresh={setRefresh}
       ></HeaderNav>
       {isAliment ? (
         <div className="global">
