@@ -33,17 +33,19 @@ function ModalAddA(props) {
       });
     }
     if (event.target.id === "nom") {
+      var n = strUcFirst(event.target.value);
       setItemA({
-        nom: event.target.value,
+        nom: n,
         quantite: itemA.quantite,
         type: itemA.type,
       });
     }
     if (event.target.id === "type") {
+      var t = strUcFirst(event.target.value);
       setItemA({
         nom: itemA.nom,
         quantite: itemA.quantite,
-        type: event.target.value,
+        type: t,
       });
     }
   }
@@ -95,7 +97,7 @@ function ModalAddA(props) {
                   type="text"
                   id="nom"
                   name="nom"
-                  value={itemA.nom || ''}
+                  value={itemA.nom || ""}
                   placeholder="Nom"
                   onChange={handleChangeA}
                   required
@@ -107,7 +109,7 @@ function ModalAddA(props) {
                 type="text"
                 id="type"
                 name="type"
-                value={itemA.type || ''}
+                value={itemA.type || ""}
                 onChange={handleChangeA}
                 placeholder="Type"
                 required
@@ -118,7 +120,7 @@ function ModalAddA(props) {
                 type="number"
                 id="quantite"
                 name="quantite"
-                value={itemA.quantite || ''}
+                value={itemA.quantite || ""}
                 onChange={handleChangeA}
                 placeholder="Quantité"
                 required
@@ -145,3 +147,7 @@ function ModalAddA(props) {
 }
 
 export default ModalAddA;
+
+function strUcFirst(a) {
+  return (a + "").charAt(0).toUpperCase() + a.substr(1);
+}

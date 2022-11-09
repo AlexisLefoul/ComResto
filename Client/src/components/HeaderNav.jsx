@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import logo_add from "../assets/more.svg";
+import API from "../app";
 
 import ModalAddP from "./ModalAddP";
 import ModalAddA from "./ModalAddA";
@@ -23,6 +24,20 @@ function HeaderNav(props) {
   };
   var idModalA = "addAliment";
   var idModalP = "addPlat";
+  const [option, setOption] = useState(null);
+
+  function handleSelectOpt(event) {
+    setOption(event.target.value);
+  }
+
+  async function getAlimentsParType() {
+    const response = await API.get("aliments/type/" + option);
+    props.setAliments(response.data);
+  }
+
+  if (option !== null) {
+    getAlimentsParType();
+  }
 
   return (
     <>
@@ -63,12 +78,14 @@ function HeaderNav(props) {
             {props.isAliment ? (
               <>
                 <li className="li-filter">
-                  <select>
+                  <select onChange={handleSelectOpt}>
                     <option defaultValue="" disabled selected hidden>
                       Filtre : Type d'aliments
                     </option>
-                    {props.optsAliments?.map((opt) => (
-                      <option value={opt}>{opt}</option>
+                    {props.optsAliments?.map((opt, index) => (
+                      <option value={opt} key={index}>
+                        {strUcFirst(opt)}
+                      </option>
                     ))}
                   </select>
                 </li>
@@ -127,3 +144,7 @@ function HeaderNav(props) {
 }
 
 export default HeaderNav;
+
+function strUcFirst(a) {
+  return (a + "").charAt(0).toUpperCase() + a.substr(1);
+}

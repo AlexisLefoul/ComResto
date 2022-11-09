@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import latinize from "latinize";
 
 import API from "../app";
 import CardPlat from "../components/CardPlat";
@@ -28,10 +29,12 @@ function GestionStock() {
   }
 
   function getOptsAliment() {
-    aliments?.map((ali) =>
-      optsAliments.includes(ali.type) ? null : optsAliments.push(ali.type)
-    );
-    console.log(optsAliments);
+    aliments?.forEach((ali) => {
+      var op = toLowerCase(ali.type);
+      latinize(op);
+      optsAliments.includes(op) ? null : optsAliments.push(op);
+    });
+    optsAliments.sort();
   }
 
   React.useEffect(() => {
@@ -54,6 +57,7 @@ function GestionStock() {
         isAliment={isAliment}
         setRefresh={setRefresh}
         optsAliments={optsAliments}
+        setAliments={setAliments}
       ></HeaderNav>
       {isAliment ? (
         <div className="global">
@@ -70,10 +74,10 @@ function GestionStock() {
       ) : (
         <div className="global">
           <div className="content-box">
-            {plats?.map((rec) => (
+            {plats?.map((rec, index) => (
               <CardPlat
                 isAdmin={isAdmin}
-                key={rec.id}
+                key={index}
                 plat={rec}
                 setRefresh={setRefresh}
               ></CardPlat>
@@ -86,3 +90,7 @@ function GestionStock() {
 }
 
 export default GestionStock;
+
+function toLowerCase(a) {
+  return (a + "").toLowerCase();
+}

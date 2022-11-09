@@ -17,17 +17,19 @@ function ModalUpdateA(props) {
       });
     }
     if (event.target.id === "nom") {
+      var n = strUcFirst(event.target.value);
       setItemA({
-        nom: event.target.value,
+        nom: n,
         quantite: itemA.quantite,
         type: itemA.type,
       });
     }
     if (event.target.id === "type") {
+      var t = strUcFirst(event.target.value);
       setItemA({
         nom: itemA.nom,
         quantite: itemA.quantite,
-        type: event.target.value,
+        type: t,
       });
     }
   }
@@ -145,3 +147,7 @@ function ModalUpdateA(props) {
 }
 
 export default ModalUpdateA;
+
+function strUcFirst(a) {
+  return (a + "").charAt(0).toUpperCase() + a.substr(1);
+}
