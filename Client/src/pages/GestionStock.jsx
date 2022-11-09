@@ -30,7 +30,6 @@ function GestionStock() {
   }
 
   async function getAlimentsParType() {
-    console.log(typeAliment);
     const response = await API.get("aliments/type/" + typeAliment);
     setAliments(response.data);
     setRefresh(false);

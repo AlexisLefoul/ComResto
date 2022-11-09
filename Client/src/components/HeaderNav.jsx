@@ -28,16 +28,20 @@ function HeaderNav(props) {
 
   const typesAliment = [];
 
-  props.optsAliments?.map((opt) =>
-    typesAliment.push({ value: opt, label: strUcFirst(opt) })
-  );
+  if (props.isAliment) {
+    props.optsAliments?.map((opt) =>
+      typesAliment.push({ value: opt, label: strUcFirst(opt) })
+    );
+  }
 
   function handleSelectOpt(event) {
     if (event !== null) {
-      props.setTypeAliment(event.value);
-      props.setRefresh(true);
-    } else {
-      clear();
+      if (props.isAliment) {
+        props.setTypeAliment(event.value);
+        props.setRefresh(true);
+      } else {
+        clear();
+      }
     }
   }
 
