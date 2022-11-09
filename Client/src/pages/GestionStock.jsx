@@ -10,6 +10,7 @@ import HeaderNav from "../components/HeaderNav";
 function GestionStock() {
   const [isAliment, setIsAliment] = useState(false);
   const isAdmin = true;
+  const [typeAliment, setTypeAliment] = useState(null);
   var optsAliments = [];
 
   const [plats, setPlats] = React.useState(null);
@@ -28,6 +29,13 @@ function GestionStock() {
     setRefresh(false);
   }
 
+  async function getAlimentsParType() {
+    console.log(typeAliment);
+    const response = await API.get("aliments/type/" + typeAliment);
+    setAliments(response.data);
+    setRefresh(false);
+  }
+
   function getOptsAliment() {
     aliments?.forEach((ali) => {
       var op = toLowerCase(ali.type);
@@ -39,7 +47,11 @@ function GestionStock() {
 
   React.useEffect(() => {
     getPlats();
-    getAliments();
+    if (typeAliment !== null) {
+      getAlimentsParType();
+    } else {
+      getAliments();
+    }
   }, [refresh]);
 
   if (aliments !== null) {
@@ -58,6 +70,7 @@ function GestionStock() {
         setRefresh={setRefresh}
         optsAliments={optsAliments}
         setAliments={setAliments}
+        setTypeAliment={setTypeAliment}
       ></HeaderNav>
       {isAliment ? (
         <div className="global">

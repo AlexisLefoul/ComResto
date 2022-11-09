@@ -1,10 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import logo_add from "../assets/more.svg";
-import API from "../app";
+import logo_clear from "../assets/filter.svg";
+import Select from "react-select";
 
 import ModalAddP from "./ModalAddP";
 import ModalAddA from "./ModalAddA";
@@ -24,19 +25,25 @@ function HeaderNav(props) {
   };
   var idModalA = "addAliment";
   var idModalP = "addPlat";
-  const [option, setOption] = useState(null);
+
+  const typesAliment = [];
+
+  props.optsAliments?.map((opt) =>
+    typesAliment.push({ value: opt, label: strUcFirst(opt) })
+  );
 
   function handleSelectOpt(event) {
-    setOption(event.target.value);
+    if (event !== null) {
+      props.setTypeAliment(event.value);
+      props.setRefresh(true);
+    } else {
+      clear();
+    }
   }
 
-  async function getAlimentsParType() {
-    const response = await API.get("aliments/type/" + option);
-    props.setAliments(response.data);
-  }
-
-  if (option !== null) {
-    getAlimentsParType();
+  function clear() {
+    props.setTypeAliment(null);
+    props.setRefresh(true);
   }
 
   return (
@@ -78,16 +85,12 @@ function HeaderNav(props) {
             {props.isAliment ? (
               <>
                 <li className="li-filter">
-                  <select onChange={handleSelectOpt}>
-                    <option defaultValue="" disabled selected hidden>
-                      Filtre : Type d'aliments
-                    </option>
-                    {props.optsAliments?.map((opt, index) => (
-                      <option value={opt} key={index}>
-                        {strUcFirst(opt)}
-                      </option>
-                    ))}
-                  </select>
+                  <Select
+                    placeholder="Selectionner un type"
+                    onChange={handleSelectOpt}
+                    isClearable
+                    options={typesAliment}
+                  ></Select>
                 </li>
                 {props.isAdmin ? (
                   <li
@@ -104,14 +107,12 @@ function HeaderNav(props) {
             ) : (
               <>
                 <li className="li-filter">
-                  <select>
-                    <option defaultValue="" disabled selected hidden>
-                      Filtre : Type de plats
-                    </option>
-                    <option value="">Entrée</option>
-                    <option value="">Plat</option>
-                    <option value="">Dessert</option>
-                  </select>
+                  <Select
+                    placeholder="Selectionner un type"
+                    onChange={handleSelectOpt}
+                    isClearable
+                    options={typesAliment}
+                  ></Select>
                 </li>
                 {props.isAdmin ? (
                   <li

@@ -116,11 +116,12 @@ select {
 
 .ul-filtre {
   margin-left: 0 !important;
-  margin-right: 2% !important;
+  margin-right: 8% !important;
 }
 
 .li-filter {
   padding: 0;
+  width: 60%;
 }
 
 .li-add {
@@ -294,6 +295,21 @@ label {
   text-align: center;
   color: #2a2a2a;
 }
+
+.css-ujecln-Input2 {
+  height: 40px;
+  margin: auto !important;
+}
+
+.css-1kwwvb1-ValueContainer2 {
+  height: 40px;
+}
+
+.css-14el2xx-placeholder {
+  font-size: 18px;
+}
+
+
 /* 
 .main {
   width: 60%;
