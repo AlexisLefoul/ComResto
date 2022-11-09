@@ -36,12 +36,10 @@ function HeaderNav(props) {
 
   function handleSelectOpt(event) {
     if (event !== null) {
-      if (props.isAliment) {
-        props.setTypeAliment(event.value);
-        props.setRefresh(true);
-      } else {
-        clear();
-      }
+      props.setTypeAliment(event.value);
+      props.setRefresh(true);
+    } else {
+      clear();
     }
   }
 
@@ -138,6 +136,7 @@ function HeaderNav(props) {
         idModal={idModalP}
         isOpen={openP}
         handleClose={handleCloseP}
+        aliments={props.getAliments}
       ></ModalAddP>
       <ModalAddA
         idModal={idModalA}

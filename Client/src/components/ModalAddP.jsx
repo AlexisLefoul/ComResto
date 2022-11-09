@@ -4,68 +4,67 @@ import makeAnimated from "react-select/animated";
 import logo_add from "../assets/more.svg";
 import API from "../app";
 
+import ModalAddAlimentOnPlat from "./ModalAddAlimentOnPlat";
+
 function ModalAddP(props) {
-  const animatedComponents = makeAnimated();
-  const colourOptions = [
-    { value: "ocean", label: "Ocean", color: "#00B8D9" },
-    { value: "blue", label: "Blue", color: "#0052CC" },
-    { value: "purple", label: "Purple", color: "#5243AA" },
-    { value: "red", label: "Red", color: "#FF5630" },
-    { value: "orange", label: "Orange", color: "#FF8B00" },
-    { value: "yellow", label: "Yellow", color: "#FFC400" },
-    { value: "green", label: "Green", color: "#36B37E" },
-    { value: "forest", label: "Forest", color: "#00875A" },
-    { value: "slate", label: "Slate", color: "#253858" },
-    { value: "silver", label: "Silver", color: "#666666" },
-  ];
+  const opts = [];
+  const idModal = "addAlimentOnPlat";
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  props.aliments.map((ali) =>
+    opts.push({ id: ali._id, value: ali.nom, label: strUcFirst(ali.nom) })
+  );
 
   const [itemA, setItemA] = useState({
     nom: "",
-    quantity: 0,
+    quantite: 0,
     type: "",
   });
 
   const [itemP, setItemP] = useState({
     nom: "",
-    price: 0,
+    prix: 0,
     type: "",
-    alts: [{ nom: "", quantity: 0 }],
+    aliments: [],
   });
 
   function handleChangeP(event) {
     if (event.target.id === "nom") {
+      var n = strUcFirst(event.target.value);
       setItemP({
-        nom: event.target.value,
-        price: itemP.price,
+        nom: n,
+        prix: itemP.prix,
         type: itemP.type,
-        alts: itemP.alts,
+        aliments: itemP.aliments,
       });
     }
-    if (event.target.id === "price") {
+    if (event.target.id === "prix") {
       setItemP({
         nom: itemP.nom,
-        price: event.target.value,
+        prix: event.target.value,
         type: itemP.type,
-        alts: itemP.alts,
+        aliments: itemP.aliments,
       });
     }
     if (event.target.id === "type") {
+      var t = strUcFirst(event.target.value);
       setItemP({
         nom: itemP.nom,
-        price: itemP.price,
-        type: event.target.value,
-        alts: itemP.alts,
+        prix: itemP.prix,
+        type: t,
+        aliments: itemP.aliments,
       });
     }
-    console.log(event.target.id);
   }
 
   function reset() {
     setItemP({
       nom: "",
-      price: 0,
+      prix: 0,
       type: "",
-      alts: [],
+      aliments: [],
     });
   }
 
@@ -75,7 +74,12 @@ function ModalAddP(props) {
   }
 
   function createPlat() {
-    API.post("plats/add", { itemP }).then((response) => {
+    API.post("plats/add", {
+      nom: itemP.nom,
+      prix: itemP.prix,
+      type: itemP.type,
+      aliments: itemP.aliments,
+    }).then((response) => {
       setItemP(response.data);
     });
     props.handleClose();
@@ -103,7 +107,7 @@ function ModalAddP(props) {
                   type="text"
                   id="nom"
                   name="nom"
-                  value={itemP.nom}
+                  value={itemP.nom || ""}
                   placeholder="Nom"
                   onChange={handleChangeP}
                   required
@@ -116,13 +120,14 @@ function ModalAddP(props) {
                 aria-label="Add"
                 className="add"
                 src={logo_add}
-                data-target={props.idModal}
+                data-target={idModal}
+                onClick={handleOpen}
               ></img>
             </div>
             <label>
-              {itemP.alts?.map((ali) => (
+              {itemP.aliments?.map((ali, index) => (
                 <>
-                  <div className="gp-ali" key={ali.id}>
+                  <div className="gp-ali" key={index}>
                     <h5 className="text-ali">{ali.nom}</h5>
                     <h5 className="text-ali">{ali.quantite}</h5>
                     <h6 className="qte">qté</h6>
@@ -135,20 +140,20 @@ function ModalAddP(props) {
                 type="text"
                 id="type"
                 name="type"
-                value={itemP.type}
+                value={itemP.type || ""}
                 onChange={handleChangeP}
                 placeholder="Type"
                 required
               />
             </label>
-            <label htmlFor="price">
+            <label htmlFor="prix">
               Prix :
               <input
                 type="number"
-                id="price"
-                name="price"
+                id="prix"
+                name="prix"
                 placeholder="Prix"
-                value={itemP.price}
+                value={itemP.prix || ""}
                 onChange={handleChangeP}
                 required
               />
@@ -169,8 +174,19 @@ function ModalAddP(props) {
           </form>
         </article>
       </dialog>
+
+      <ModalAddAlimentOnPlat
+        idModal={idModal}
+        isOpen={open}
+        handleClose={handleClose}
+        opts={opts}
+      ></ModalAddAlimentOnPlat>
     </>
   );
 }
 
 export default ModalAddP;
+
+function strUcFirst(a) {
+  return (a + "").charAt(0).toUpperCase() + a.substr(1);
+}

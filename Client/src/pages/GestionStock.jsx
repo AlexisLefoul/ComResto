@@ -70,14 +70,15 @@ function GestionStock() {
         optsAliments={optsAliments}
         setAliments={setAliments}
         setTypeAliment={setTypeAliment}
+        getAliments={aliments}
       ></HeaderNav>
       {isAliment ? (
         <div className="global">
           <div className="content-box">
-            {aliments?.map((rec) => (
+            {aliments?.map((rec, index) => (
               <CardAliment
                 aliment={rec}
-                key={rec.id}
+                key={index}
                 setRefresh={setRefresh}
               ></CardAliment>
             ))}
