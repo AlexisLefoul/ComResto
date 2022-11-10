@@ -33,9 +33,9 @@ function CardPlat(props) {
             <h2 style={{ textAlign: "center" }}>{props.plat.nom}</h2>
             <h3>Liste d'ingrédients :</h3>
           </hgroup>
-          {props.plat.aliments?.map((ali) => (
+          {props.plat.aliments?.map((ali, index) => (
             <>
-              <div className="gp-ali" key={ali.id}>
+              <div className="gp-ali" key={index}>
                 <h5 className="text-ali">{ali.nom}</h5>
                 <h5 className="text-ali">{ali.quantite}</h5>
                 <h6 className="qte">qté</h6>

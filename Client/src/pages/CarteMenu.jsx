@@ -24,8 +24,8 @@ function CarteMenu() {
       <HeaderNav isAdmin={isAdmin}></HeaderNav>
       <div className="global">
         <div className="content-box">
-          {plats?.map((rec) => (
-            <CardPlat isAdmin={isAdmin} key={rec.id} plat={rec}></CardPlat>
+          {plats?.map((rec, index) => (
+            <CardPlat isAdmin={isAdmin} key={index} plat={rec}></CardPlat>
           ))}
         </div>
       </div>

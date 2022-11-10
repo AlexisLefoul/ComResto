@@ -1,5 +1,6 @@
 import { useState } from "react";
 import logo_add from "../assets/more.svg";
+import logo_supp from "../assets/delete.svg";
 import API from "../app";
 
 import ModalAddAlimentOnPlat from "./ModalAddAlimentOnPlat";
@@ -11,15 +12,11 @@ function ModalAddP(props) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  props.aliments.map((ali) =>
-    opts.push({ id: ali._id, value: ali.nom, label: strUcFirst(ali.nom) })
-  );
-
-  const [itemA, setItemA] = useState({
-    nom: "",
-    quantite: 0,
-    type: "",
-  });
+  if (props.aliments !== undefined) {
+    props.aliments.map((ali) =>
+      opts.push({ id: ali._id, value: ali.nom, label: strUcFirst(ali.nom) })
+    );
+  }
 
   const [itemP, setItemP] = useState({
     nom: "",
@@ -69,6 +66,16 @@ function ModalAddP(props) {
   function onClick() {
     reset();
     props.handleClose();
+  }
+
+  function supprimer(a) {
+    let newListAliments = itemP.aliments.filter((item) => item !== a);
+    setItemP({
+      nom: itemP.nom,
+      prix: itemP.prix,
+      type: itemP.type,
+      aliments: newListAliments,
+    });
   }
 
   function createPlat() {
@@ -129,11 +136,18 @@ function ModalAddP(props) {
                     <h5 className="text-ali">{ali.nom}</h5>
                     <h5 className="text-ali">{ali.quantite}</h5>
                     <h6 className="qte">qté</h6>
+                    <img
+                      aria-label="Supprimer"
+                      className="supprimer"
+                      src={logo_supp}
+                      onClick={() => supprimer(ali)}
+                    ></img>
                   </div>
                 </>
               ))}
             </label>
             <label htmlFor="type">
+              Type :
               <input
                 type="text"
                 id="type"

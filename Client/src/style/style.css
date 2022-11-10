@@ -257,12 +257,14 @@ label {
   height: 50px;
 }
 
-.edit {
+.edit,
+.supprimer {
   margin-right: auto;
   height: 20px;
 }
 
-.edit:hover {
+.edit:hover,
+.supprimer:hover {
   height: 22px;
 }
 
@@ -278,7 +280,8 @@ label {
 .ctn-add {
   display: flex;
   flex-direction: row;
-  margin-left: 21px;
+  margin-left: 25px;
+  margin-bottom: 20px;
 }
 
 .logo-supp {
@@ -297,12 +300,12 @@ label {
 }
 
 .css-ujecln-Input2 {
-  height: 40px;
+  height: 45px;
   margin: auto !important;
 }
 
 .react-select-container > .react-select__control {
-  height: 40px;
+  height: 45px;
   border-color: #2a2a2a;
 }
 
@@ -315,18 +318,39 @@ label {
 }
 
 .css-14el2xx-placeholder {
-  font-size: 18px;
+  font-size: 1rem;
 }
 
 .react-select__menu > .react-select__menu-list > .react-select__option {
   color: #2a2a2a;
 }
-.react-select__menu > .react-select__menu-list > .react-select__option:hover {
+
+.react-select__menu
+  > .react-select__menu-list
+  > .react-select__option--is-focused {
   background-color: #522da84f;
 }
 
+.react-select__menu
+  > .react-select__menu-list
+  > .react-select__option--is-selected {
+  background-color: #522da88a;
+}
+
+.react-select__value-container {
+  padding: 0px !important;
+  padding-left: 12px !important;
+}
+
 .selectAliment {
-  margin-bottom: 30px;
+  width: 90%;
+  margin: auto;
+}
+
+.labelQte {
+  height: 50px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 /* 

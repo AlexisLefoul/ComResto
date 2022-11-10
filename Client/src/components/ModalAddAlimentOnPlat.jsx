@@ -1,8 +1,9 @@
-import API from "../app";
 import Select from "react-select";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 function ModalAddAlimentOnPlat(props) {
+  const selectInputRef = useRef();
+
   const [itemA, setItemA] = useState({
     nom: "",
     quantite: 0,
@@ -10,23 +11,31 @@ function ModalAddAlimentOnPlat(props) {
   });
 
   function handleChangeA(event) {
-    if (event.target === undefined) {
-      console.log(event);
+    setItemA({
+      nom: itemA.nom,
+      id: itemA.id,
+      quantite: event.target.value,
+    });
+  }
+
+  function handleSelectOpt(event) {
+    if (event !== null) {
       setItemA({
         nom: event.value,
         id: event.id,
         quantite: itemA.quantite,
       });
-    } else {
-      setItemA({
-        nom: itemA.nom,
-        id: itemA.id,
-        quantite: event.target.value,
-      });
     }
   }
 
   function ajouter() {
+    props.listAliments.push(itemA);
+    setItemA({
+      nom: "",
+      quantite: 0,
+      id: "",
+    });
+    selectInputRef.current.clearValue();
     props.handleClose();
   }
 
@@ -47,18 +56,17 @@ function ModalAddAlimentOnPlat(props) {
           <h2>Ajouter un aliment au plat</h2>
 
           <form>
-            <label htmlFor="nom" className="selectAliment">
-              <Select
-                placeholder="Selectionner un type"
-                isClearable
-                options={props.opts}
-                className="react-select-container"
-                classNamePrefix="react-select"
-                id="nom"
-                onChange={handleChangeA}
-              ></Select>
-            </label>
-            <label htmlFor="quantite">
+            <Select
+              ref={selectInputRef}
+              placeholder="Selectionner un type"
+              isClearable
+              options={props.opts}
+              className="react-select-container selectAliment"
+              classNamePrefix="react-select"
+              id="nom"
+              onChange={handleSelectOpt}
+            ></Select>
+            <label htmlFor="quantite" className="labelQte">
               <input
                 type="number"
                 id="quantite"
@@ -67,6 +75,7 @@ function ModalAddAlimentOnPlat(props) {
                 onChange={handleChangeA}
                 placeholder="Quantité"
                 required
+                style={{ height: 45 }}
               />
             </label>
             <div className="btns">
