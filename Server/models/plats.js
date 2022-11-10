@@ -118,7 +118,7 @@ var Plat = /** @class */ (function () {
                             nom: body.nom,
                             type: body.type,
                             aliments: body.aliments,
-                            prix: body.prix
+                            prix: body.prix,
                         });
                         return [4 /*yield*/, plat.save()];
                     case 1: return [2 /*return*/, _a.sent()];
@@ -133,7 +133,7 @@ var Plat = /** @class */ (function () {
                         nom: body.nom,
                         type: body.type,
                         aliments: body.aliments,
-                        prix: body.prix
+                        prix: body.prix,
                     }, { new: true })];
             });
         });

@@ -1,6 +1,4 @@
 import { useState } from "react";
-import Select from "react-select";
-import makeAnimated from "react-select/animated";
 import logo_add from "../assets/more.svg";
 import API from "../app";
 
@@ -180,6 +178,7 @@ function ModalAddP(props) {
         isOpen={open}
         handleClose={handleClose}
         opts={opts}
+        listAliments={itemP.aliments}
       ></ModalAddAlimentOnPlat>
     </>
   );

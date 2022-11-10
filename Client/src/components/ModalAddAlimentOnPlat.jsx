@@ -1,8 +1,32 @@
 import API from "../app";
 import Select from "react-select";
+import { useState } from "react";
 
 function ModalAddAlimentOnPlat(props) {
-  function supprimer() {
+  const [itemA, setItemA] = useState({
+    nom: "",
+    quantite: 0,
+    id: "",
+  });
+
+  function handleChangeA(event) {
+    if (event.target === undefined) {
+      console.log(event);
+      setItemA({
+        nom: event.value,
+        id: event.id,
+        quantite: itemA.quantite,
+      });
+    } else {
+      setItemA({
+        nom: itemA.nom,
+        id: itemA.id,
+        quantite: event.target.value,
+      });
+    }
+  }
+
+  function ajouter() {
     props.handleClose();
   }
 
@@ -20,16 +44,34 @@ function ModalAddAlimentOnPlat(props) {
             data-target={props.idModal}
             onClick={props.handleClose}
           ></a>
-          <h2>Voulez vous supprimer l'aliment ?</h2>
-          <Select
-            placeholder="Selectionner un type"
-            isClearable
-            options={props.opts}
-          ></Select>
+          <h2>Ajouter un aliment au plat</h2>
+
           <form>
+            <label htmlFor="nom" className="selectAliment">
+              <Select
+                placeholder="Selectionner un type"
+                isClearable
+                options={props.opts}
+                className="react-select-container"
+                classNamePrefix="react-select"
+                id="nom"
+                onChange={handleChangeA}
+              ></Select>
+            </label>
+            <label htmlFor="quantite">
+              <input
+                type="number"
+                id="quantite"
+                name="quantite"
+                value={itemA.quantite || ""}
+                onChange={handleChangeA}
+                placeholder="Quantité"
+                required
+              />
+            </label>
             <div className="btns">
-              <button type="button" onClick={supprimer}>
-                Supprimer
+              <button type="button" onClick={ajouter}>
+                Ajouter
               </button>
               <button
                 type="button"

@@ -92,6 +92,8 @@ function HeaderNav(props) {
                     onChange={handleSelectOpt}
                     isClearable
                     options={typesAliment}
+                    className="react-select-container"
+                    classNamePrefix="react-select"
                   ></Select>
                 </li>
                 {props.isAdmin ? (
@@ -114,6 +116,8 @@ function HeaderNav(props) {
                     onChange={handleSelectOpt}
                     isClearable
                     options={typesAliment}
+                    className="react-select-container"
+                    classNamePrefix="react-select"
                   ></Select>
                 </li>
                 {props.isAdmin ? (

@@ -3,7 +3,7 @@ import mongoose, { Schema } from "mongoose";
 const platSchema = new Schema({
   nom: String,
   type: String,
-  aliments: [{nom: String, quantite: Number}],
+  aliments: [{ nom: String, quantite: Number }],
   prix: Number,
 });
 const platModel = mongoose.model("Plat", platSchema);
@@ -28,21 +28,26 @@ export class Plat {
   public static async insertPlat(body: {
     nom: string;
     type: string;
-    aliments: [{nom:string, quantite:number}];
+    aliments: [{ nom: string; quantite: number; id: string }];
     prix: number;
   }) {
     const plat = new platModel({
       nom: body.nom,
       type: body.type,
       aliments: body.aliments,
-      prix: body.prix
+      prix: body.prix,
     });
     return await plat.save();
   }
 
   public static async updatePlat(
     id: String,
-    body: { nom: string; type: string; aliments:[{nom:string,quantite:number}]; prix: number }
+    body: {
+      nom: string;
+      type: string;
+      aliments: [{ nom: string; quantite: number; id: string }];
+      prix: number;
+    }
   ) {
     return platModel.findByIdAndUpdate(
       { _id: id },
@@ -50,7 +55,7 @@ export class Plat {
         nom: body.nom,
         type: body.type,
         aliments: body.aliments,
-        prix: body.prix
+        prix: body.prix,
       },
       { new: true }
     );
