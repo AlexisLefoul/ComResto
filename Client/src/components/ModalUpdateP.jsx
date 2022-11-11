@@ -1,59 +1,99 @@
 import { useState } from "react";
 import logo_edit from "../assets/editing.svg";
 import logo_add from "../assets/more.svg";
+import logo_supp from "../assets/delete.svg";
+
 import ModalUpdateA from "./ModalUpdateA";
+import ModalAddAlimentOnPlat from "./ModalAddAlimentOnPlat";
 
 function ModalUpdateP(props) {
-  var idModal = "updateAliment";
-  const [open, setOpen] = useState(false);
-  const [updateAli, setUpadateAli] = useState({
-    id: 0,
-    nom: "",
-    quantite: 0,
-  });
+  var idModalUpdateAliment = "updateAliment";
+  var idModalAddAlimentOnPlat = "addAlimentOnPlat";
+  const opts = [];
 
-  function handleOpen(i) {
-    setOpen(true);
+  const [openAdd, setOpenAdd] = useState(false);
+  const handleOpenAdd = () => setOpenAdd(true);
+  const handleCloseAdd = () => setOpenAdd(false);
+
+  const [openUpdateAli, setOpenUpdateAli] = useState(false);
+  const handleCloseUpdateAli = () => setOpenUpdateAli(false);
+  function handleOpenUpdateAli(i) {
+    setOpenUpdateAli(true);
     setUpadateAli({
       id: i._id,
       nom: i.nom,
+      type: i.type,
       quantite: i.quantite,
     });
   }
-  const handleClose = () => setOpen(false);
+
+  const [updateAli, setUpadateAli] = useState({
+    id: 0,
+    nom: "",
+    type: "",
+    quantite: 0,
+  });
 
   const [itemP, setItemP] = useState({
     nom: props.param.nom,
-    price: props.param.prix,
-    alts: props.param.aliments,
+    prix: props.param.prix,
+    type: props.param.type,
+    aliments: props.param.aliments,
   });
 
   function handleChangeP(event) {
-    if (event.target.type === "text") {
+    if (event.target.id === "nom") {
+      var n = strUcFirst(event.target.value);
       setItemP({
-        nom: event.target.value,
-        price: itemP.price,
-        alts: itemP.alts,
+        nom: n,
+        prix: itemP.prix,
+        type: itemP.type,
+        aliments: itemP.aliments,
       });
     }
-    if (event.target.type === "number") {
-      setItemP({ nom: itemP.nom, price: event.target.value, alts: itemP.alts });
+    if (event.target.id === "type") {
+      var t = strUcFirst(event.target.value);
+      setItemP({
+        nom: itemP.nom,
+        prix: itemP.prix,
+        type: t,
+        aliments: itemP.aliments,
+      });
+    }
+    if (event.target.id === "prix") {
+      setItemP({
+        nom: itemP.nom,
+        prix: event.target.value,
+        type: itemP.type,
+        aliments: itemP.aliments,
+      });
     }
   }
 
-  const opts = [
-    { value: "ocean", label: "Ocean" },
-    { value: "blue", label: "Blue" },
-    { value: "purple", label: "Purple" },
-    { value: "red", label: "Red" },
-    { value: "orange", label: "Orange" },
-    { value: "yellow", label: "Yellow" },
-    { value: "green", label: "Green" },
-    { value: "forest", label: "Forest" },
-    { value: "slate", label: "Slate" },
-    { value: "silver", label: "Silver" },
-  ];
-  
+  function supprimer(a) {
+    let newListAliments = itemP.aliments.filter((item) => item !== a);
+    setItemP({
+      nom: itemP.nom,
+      prix: itemP.prix,
+      type: itemP.type,
+      aliments: newListAliments,
+    });
+  }
+
+  if (props.listAliments !== undefined) {
+    let newListAliments = [];
+    itemP.aliments.map((element) => {
+      newListAliments = props.listAliments.filter(
+        (item) => item.nom !== element.nom
+      );
+    });
+
+    console.log(newListAliments);
+    newListAliments.map((ali) =>
+      opts.push({ id: ali._id, value: ali.nom, label: strUcFirst(ali.nom) })
+    );
+  }
+
   return (
     <>
       <dialog
@@ -84,17 +124,30 @@ function ModalUpdateP(props) {
                 />
               </label>
             </div>
+            <label htmlFor="type">
+              Type :
+              <input
+                type="text"
+                id="type"
+                name="type"
+                placeholder="type"
+                value={itemP.type}
+                onChange={handleChangeP}
+                required
+              />
+            </label>
             <div className="ctn-add">
               <label style={{ margin: 0 }}>Incrédients :</label>
               <img
                 aria-label="Add"
                 className="add"
                 src={logo_add}
-                data-target={props.idModal}
+                data-target={idModalAddAlimentOnPlat}
+                onClick={handleOpenAdd}
               ></img>
             </div>
             <label>
-              {itemP.alts?.map((ali) => (
+              {itemP.aliments?.map((ali) => (
                 <>
                   <div className="gp-ali" key={ali.id}>
                     <h5 className="text-ali">{ali.nom}</h5>
@@ -104,21 +157,27 @@ function ModalUpdateP(props) {
                       aria-label="Edit"
                       className="edit"
                       src={logo_edit}
-                      data-target={props.idModal}
-                      onClick={() => handleOpen(ali)}
+                      data-target={idModalUpdateAliment}
+                      onClick={() => handleOpenUpdateAli(ali)}
+                    ></img>
+                    <img
+                      aria-label="Supprimer"
+                      className="supprimer"
+                      src={logo_supp}
+                      onClick={() => supprimer(ali)}
                     ></img>
                   </div>
                 </>
               ))}
             </label>
-            <label htmlFor="price">
+            <label htmlFor="prix">
               Prix :
               <input
                 type="number"
-                id="price"
-                name="price"
+                id="prix"
+                name="prix"
                 placeholder="Prix"
-                value={itemP.price}
+                value={itemP.prix}
                 onChange={handleChangeP}
                 required
               />
@@ -137,14 +196,25 @@ function ModalUpdateP(props) {
         </article>
       </dialog>
       <ModalUpdateA
-        idModal={idModal}
-        isOpen={open}
-        handleClose={handleClose}
+        idModal={idModalUpdateAliment}
+        isOpen={openUpdateAli}
+        handleClose={handleCloseUpdateAli}
         param={updateAli}
         isUpdateInPlat={true}
       ></ModalUpdateA>
+      <ModalAddAlimentOnPlat
+        idModal={idModalAddAlimentOnPlat}
+        isOpen={openAdd}
+        handleClose={handleCloseAdd}
+        opts={opts}
+        listAliments={itemP.aliments}
+      ></ModalAddAlimentOnPlat>
     </>
   );
 }
 
 export default ModalUpdateP;
+
+function strUcFirst(a) {
+  return (a + "").charAt(0).toUpperCase() + a.substr(1);
+}

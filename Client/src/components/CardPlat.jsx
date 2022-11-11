@@ -62,6 +62,7 @@ function CardPlat(props) {
         isOpen={open}
         handleClose={handleClose}
         param={props.plat}
+        listAliments={props.getAliments}
       ></ModalUpdateP>
       <ModalDelete
         idModal={idModalDelete}

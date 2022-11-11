@@ -93,6 +93,7 @@ function GestionStock() {
                 key={index}
                 plat={rec}
                 setRefresh={setRefresh}
+                getAliments={aliments}
               ></CardPlat>
             ))}
           </div>
