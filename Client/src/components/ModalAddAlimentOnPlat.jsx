@@ -7,13 +7,13 @@ function ModalAddAlimentOnPlat(props) {
   const [itemA, setItemA] = useState({
     nom: "",
     quantite: 0,
-    id: "",
+    idAliment: "",
   });
 
   function handleChangeA(event) {
     setItemA({
       nom: itemA.nom,
-      id: itemA.id,
+      idAliment: itemA.idAliment,
       quantite: event.target.value,
     });
   }
@@ -22,7 +22,7 @@ function ModalAddAlimentOnPlat(props) {
     if (event !== null) {
       setItemA({
         nom: event.value,
-        id: event.id,
+        idAliment: event.id,
         quantite: itemA.quantite,
       });
     }
@@ -33,7 +33,7 @@ function ModalAddAlimentOnPlat(props) {
     setItemA({
       nom: "",
       quantite: 0,
-      id: "",
+      idAliment: "",
     });
     selectInputRef.current.clearValue();
     props.handleClose();

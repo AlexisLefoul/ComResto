@@ -41,7 +41,7 @@ var mongoose_1 = require("mongoose");
 var platSchema = new mongoose_1.Schema({
     nom: String,
     type: String,
-    aliments: [{ nom: String, quantite: Number }],
+    aliments: [{ nom: String, quantite: Number, idAliment: String }],
     prix: Number,
 });
 var platModel = mongoose_1.default.model("Plat", platSchema);

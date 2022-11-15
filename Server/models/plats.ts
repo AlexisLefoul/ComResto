@@ -3,7 +3,7 @@ import mongoose, { Schema } from "mongoose";
 const platSchema = new Schema({
   nom: String,
   type: String,
-  aliments: [{ nom: String, quantite: Number }],
+  aliments: [{ nom: String, quantite: Number, idAliment: String }],
   prix: Number,
 });
 const platModel = mongoose.model("Plat", platSchema);
@@ -28,7 +28,7 @@ export class Plat {
   public static async insertPlat(body: {
     nom: string;
     type: string;
-    aliments: [{ nom: string; quantite: number; id: string }];
+    aliments: [{ nom: string; quantite: number; idAliment: string }];
     prix: number;
   }) {
     const plat = new platModel({
@@ -45,7 +45,7 @@ export class Plat {
     body: {
       nom: string;
       type: string;
-      aliments: [{ nom: string; quantite: number; id: string }];
+      aliments: [{ nom: string; quantite: number; idAliment: string }];
       prix: number;
     }
   ) {

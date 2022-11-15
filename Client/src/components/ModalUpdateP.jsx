@@ -81,15 +81,14 @@ function ModalUpdateP(props) {
   }
 
   if (props.listAliments !== undefined) {
-    let newListAliments = [];
-    itemP.aliments.map((element) => {
-      newListAliments = props.listAliments.filter(
-        (item) => item.nom !== element.nom
+    itemP.aliments.forEach((element) => {
+      var indexA = props.listAliments.findIndex(
+        (item) => item._id === element.idAliment
       );
+      console.log(indexA);
     });
 
-    console.log(newListAliments);
-    newListAliments.map((ali) =>
+    props.listAliments.map((ali) =>
       opts.push({ id: ali._id, value: ali.nom, label: strUcFirst(ali.nom) })
     );
   }
