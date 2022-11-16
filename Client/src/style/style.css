@@ -149,6 +149,8 @@ article {
   padding: 15px;
   margin-bottom: 40px;
   margin-top: 30px;
+  align-content: center;
+  display: grid;
 }
 
 hgroup > h2 {

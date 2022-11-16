@@ -6,9 +6,9 @@ import ModalDelete from "./ModalDelete";
 import logo_supp from "../assets/delete.svg";
 
 function CardPlat(props) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const [openD, setOpenD] = React.useState(false);
+  const [openD, setOpenD] = useState(false);
   const handleOpenD = () => setOpenD(true);
   const handleClose = () => {
     setOpen(false);

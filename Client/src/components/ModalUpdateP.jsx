@@ -1,38 +1,18 @@
 import { useState } from "react";
-import logo_edit from "../assets/editing.svg";
+import API from "../app";
+
 import logo_add from "../assets/more.svg";
 import logo_supp from "../assets/delete.svg";
 
-import ModalUpdateA from "./ModalUpdateA";
 import ModalAddAlimentOnPlat from "./ModalAddAlimentOnPlat";
 
 function ModalUpdateP(props) {
-  var idModalUpdateAliment = "updateAliment";
   var idModalAddAlimentOnPlat = "addAlimentOnPlat";
   const opts = [];
 
   const [openAdd, setOpenAdd] = useState(false);
   const handleOpenAdd = () => setOpenAdd(true);
   const handleCloseAdd = () => setOpenAdd(false);
-
-  const [openUpdateAli, setOpenUpdateAli] = useState(false);
-  const handleCloseUpdateAli = () => setOpenUpdateAli(false);
-  function handleOpenUpdateAli(i) {
-    setOpenUpdateAli(true);
-    setUpadateAli({
-      id: i._id,
-      nom: i.nom,
-      type: i.type,
-      quantite: i.quantite,
-    });
-  }
-
-  const [updateAli, setUpadateAli] = useState({
-    id: 0,
-    nom: "",
-    type: "",
-    quantite: 0,
-  });
 
   const [itemP, setItemP] = useState({
     nom: props.param.nom,
@@ -81,16 +61,31 @@ function ModalUpdateP(props) {
   }
 
   if (props.listAliments !== undefined) {
-    itemP.aliments.forEach((element) => {
-      var indexA = props.listAliments.findIndex(
-        (item) => item._id === element.idAliment
-      );
-      console.log(indexA);
-    });
-
     props.listAliments.map((ali) =>
       opts.push({ id: ali._id, value: ali.nom, label: strUcFirst(ali.nom) })
     );
+  }
+
+  function reset() {
+    setItemP({
+      nom: props.param.nom,
+      prix: props.param.prix,
+      type: props.param.type,
+      aliments: props.param.aliments,
+    });
+  }
+
+  function updatePlat() {
+    API.put("plats/update/" + props.param._id, {
+      nom: itemP.nom,
+      prix: itemP.prix,
+      type: itemP.type,
+      aliments: itemP.aliments,
+    }).then((response) => {
+      setItemP(response.data);
+    });
+    reset();
+    props.handleClose();
   }
 
   return (
@@ -117,7 +112,7 @@ function ModalUpdateP(props) {
                   id="nom"
                   name="nom"
                   placeholder="Nom"
-                  value={itemP.nom}
+                  value={itemP.nom || ""}
                   onChange={handleChangeP}
                   required
                 />
@@ -130,7 +125,7 @@ function ModalUpdateP(props) {
                 id="type"
                 name="type"
                 placeholder="type"
-                value={itemP.type}
+                value={itemP.type || ""}
                 onChange={handleChangeP}
                 required
               />
@@ -153,13 +148,6 @@ function ModalUpdateP(props) {
                     <h5 className="text-ali">{ali.quantite}</h5>
                     <h6 className="qte">qté</h6>
                     <img
-                      aria-label="Edit"
-                      className="edit"
-                      src={logo_edit}
-                      data-target={idModalUpdateAliment}
-                      onClick={() => handleOpenUpdateAli(ali)}
-                    ></img>
-                    <img
                       aria-label="Supprimer"
                       className="supprimer"
                       src={logo_supp}
@@ -176,13 +164,15 @@ function ModalUpdateP(props) {
                 id="prix"
                 name="prix"
                 placeholder="Prix"
-                value={itemP.prix}
+                value={itemP.prix || ""}
                 onChange={handleChangeP}
                 required
               />
             </label>
             <div className="btns">
-              <button type="button">Modifer</button>
+              <button type="button" onClick={updatePlat}>
+                Modifer
+              </button>
               <button
                 type="button"
                 className="secondary"
@@ -194,13 +184,7 @@ function ModalUpdateP(props) {
           </form>
         </article>
       </dialog>
-      <ModalUpdateA
-        idModal={idModalUpdateAliment}
-        isOpen={openUpdateAli}
-        handleClose={handleCloseUpdateAli}
-        param={updateAli}
-        isUpdateInPlat={true}
-      ></ModalUpdateA>
+
       <ModalAddAlimentOnPlat
         idModal={idModalAddAlimentOnPlat}
         isOpen={openAdd}
@@ -217,3 +201,16 @@ export default ModalUpdateP;
 function strUcFirst(a) {
   return (a + "").charAt(0).toUpperCase() + a.substr(1);
 }
+
+/*if (props.listAliments !== undefined) {
+    itemP.aliments.forEach((element) => {
+      var indexA = props.listAliments.findIndex(
+        (item) => item._id === element.idAliment
+      );
+      console.log(indexA);
+    });
+
+    props.listAliments.map((ali) =>
+      opts.push({ id: ali._id, value: ali.nom, label: strUcFirst(ali.nom) })
+    );
+  }*/

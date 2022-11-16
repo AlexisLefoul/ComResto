@@ -87,6 +87,7 @@ function ModalAddP(props) {
     }).then((response) => {
       setItemP(response.data);
     });
+    reset();
     props.handleClose();
   }
 

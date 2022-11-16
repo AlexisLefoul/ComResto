@@ -4,7 +4,6 @@ import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import logo_add from "../assets/more.svg";
-import logo_clear from "../assets/filter.svg";
 import Select from "react-select";
 
 import ModalAddP from "./ModalAddP";
@@ -27,14 +26,19 @@ function HeaderNav(props) {
   var idModalP = "addPlat";
 
   const typesAliment = [];
+  const typesPlat = [];
 
   if (props.isAliment) {
     props.optsAliments?.map((opt) =>
-      typesAliment.push({ value: opt, label: strUcFirst(opt) })
+      typesAliment.push({ value: strUcFirst(opt), label: strUcFirst(opt) })
+    );
+  } else {
+    props.optsPlats?.map((opt) =>
+      typesPlat.push({ value: strUcFirst(opt), label: strUcFirst(opt) })
     );
   }
 
-  function handleSelectOpt(event) {
+  function handleSelectOptA(event) {
     if (event !== null) {
       props.setTypeAliment(event.value);
       props.setRefresh(true);
@@ -43,8 +47,18 @@ function HeaderNav(props) {
     }
   }
 
+  function handleSelectOptP(event) {
+    if (event !== null) {
+      props.setTypePlat(event.value);
+      props.setRefresh(true);
+    } else {
+      clear();
+    }
+  }
+
   function clear() {
     props.setTypeAliment(null);
+    props.setTypePlat(null);
     props.setRefresh(true);
   }
 
@@ -89,7 +103,7 @@ function HeaderNav(props) {
                 <li className="li-filter">
                   <Select
                     placeholder="Selectionner un type"
-                    onChange={handleSelectOpt}
+                    onChange={handleSelectOptA}
                     isClearable
                     options={typesAliment}
                     className="react-select-container"
@@ -113,9 +127,9 @@ function HeaderNav(props) {
                 <li className="li-filter">
                   <Select
                     placeholder="Selectionner un type"
-                    onChange={handleSelectOpt}
+                    onChange={handleSelectOptP}
                     isClearable
-                    options={typesAliment}
+                    options={typesPlat}
                     className="react-select-container"
                     classNamePrefix="react-select"
                   ></Select>
