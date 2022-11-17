@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import API from "../app";
 
 import logo_add from "../assets/more.svg";
@@ -10,6 +10,7 @@ function ModalUpdateP(props) {
   var idModalAddAlimentOnPlat = "addAlimentOnPlat";
   const opts = [];
 
+  const [newListAliments, setnewListAliments] = useState(props.listAliments);
   const [openAdd, setOpenAdd] = useState(false);
   const handleOpenAdd = () => setOpenAdd(true);
   const handleCloseAdd = () => setOpenAdd(false);
@@ -59,6 +60,24 @@ function ModalUpdateP(props) {
       aliments: newListAliments,
     });
   }
+
+  /*useEffect(() => {
+    if (props.listAliments !== undefined) {
+      props.listAliments.map((ali) => {
+        itemP.aliments.map((element) => {
+          if (element.idAliment !== ali._id) {
+            opts.push({
+              id: ali._id,
+              value: ali.nom,
+              label: strUcFirst(ali.nom),
+            });
+          }
+        });
+      });
+      const optsAlis = [...new Set(opts)];
+      console.log(optsAlis);
+    }
+  }, [props.isOpen]);*/
 
   if (props.listAliments !== undefined) {
     props.listAliments.map((ali) =>
@@ -201,16 +220,3 @@ export default ModalUpdateP;
 function strUcFirst(a) {
   return (a + "").charAt(0).toUpperCase() + a.substr(1);
 }
-
-/*if (props.listAliments !== undefined) {
-    itemP.aliments.forEach((element) => {
-      var indexA = props.listAliments.findIndex(
-        (item) => item._id === element.idAliment
-      );
-      console.log(indexA);
-    });
-
-    props.listAliments.map((ali) =>
-      opts.push({ id: ali._id, value: ali.nom, label: strUcFirst(ali.nom) })
-    );
-  }*/

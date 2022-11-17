@@ -111,9 +111,17 @@ function ModalAddA(props) {
               />
             </label>
             <div className="btns">
-              <button type="button" onClick={createAliment}>
-                Ajouter
-              </button>
+              {itemA.quantite === 0 ||
+              itemA.nom === null ||
+              itemA.type === null ? (
+                <button type="button" onClick={createAliment} disabled>
+                  Ajouter
+                </button>
+              ) : (
+                <button type="button" onClick={createAliment}>
+                  Ajouter
+                </button>
+              )}
               <button
                 type="button"
                 className="secondary"

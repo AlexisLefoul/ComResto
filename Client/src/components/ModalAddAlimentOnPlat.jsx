@@ -64,6 +64,7 @@ function ModalAddAlimentOnPlat(props) {
               className="react-select-container selectAliment"
               classNamePrefix="react-select"
               id="nom"
+              required
               onChange={handleSelectOpt}
             ></Select>
             <label htmlFor="quantite" className="labelQte">
@@ -79,9 +80,16 @@ function ModalAddAlimentOnPlat(props) {
               />
             </label>
             <div className="btns">
-              <button type="button" onClick={ajouter}>
-                Ajouter
-              </button>
+              {itemA.quantite === 0 ? (
+                <button type="button" onClick={ajouter} disabled>
+                  Ajouter
+                </button>
+              ) : (
+                <button type="button" onClick={ajouter}>
+                  Ajouter
+                </button>
+              )}
+
               <button
                 type="button"
                 className="secondary"
