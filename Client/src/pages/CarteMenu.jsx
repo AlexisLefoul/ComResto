@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
+import latinize from "latinize";
 
 import API from "../app";
 import CardPlat from "../components/CardPlat";
@@ -7,21 +8,61 @@ import HeaderNav from "../components/HeaderNav";
 
 function CarteMenu() {
   const isAdmin = false;
-  const [plats, setPlats] = React.useState(null);
+  const [refresh, setRefresh] = useState(false);
+  const [plats, setPlats] = useState(null);
+  const [aliments, setAliments] = useState(null);
+  const [typePlat, setTypePlat] = useState(null);
+  var optsPlats = [];
 
-  React.useEffect(() => {
-    async function getPost() {
-      const response = await API.get("plats");
-      setPlats(response.data);
+  function getOptsPlats() {
+    plats?.forEach((p) => {
+      var op = toLowerCase(p.type);
+      latinize(op);
+      optsPlats.includes(op) ? null : optsPlats.push(op);
+    });
+    optsPlats.sort();
+  }
+
+  async function getAliments() {
+    const response = await API.get("aliments");
+    setAliments(response.data);
+    setRefresh(false);
+  }
+
+  async function getPlats() {
+    const response = await API.get("plats");
+    setPlats(response.data);
+    setRefresh(false);
+  }
+
+  async function getPlatsParType() {
+    const response = await API.get("plats/type/" + typePlat);
+    setPlats(response.data);
+    setRefresh(false);
+  }
+
+  useEffect(() => {
+    if (typePlat !== null) {
+      getPlatsParType();
+    } else {
+      getPlats();
     }
-    getPost();
-  }, []);
+  }, [refresh]);
+
+  if (plats !== null) {
+    getOptsPlats();
+  }
 
   if (!plats) return null;
 
   return (
     <>
-      <HeaderNav isAdmin={isAdmin}></HeaderNav>
+      <HeaderNav
+        isAdmin={isAdmin}
+        setTypePlat={setTypePlat}
+        setRefresh={setRefresh}
+        optsPlats={optsPlats}
+      ></HeaderNav>
       <div className="global">
         <div className="content-box">
           {plats?.map((rec, index) => (
@@ -34,3 +75,7 @@ function CarteMenu() {
 }
 
 export default CarteMenu;
+
+function toLowerCase(a) {
+  return (a + "").toLowerCase();
+}

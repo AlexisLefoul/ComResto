@@ -43,7 +43,7 @@ function HeaderNav(props) {
       props.setTypeAliment(event.value);
       props.setRefresh(true);
     } else {
-      clear();
+      clearA();
     }
   }
 
@@ -52,12 +52,16 @@ function HeaderNav(props) {
       props.setTypePlat(event.value);
       props.setRefresh(true);
     } else {
-      clear();
+      clearP();
     }
   }
 
-  function clear() {
+  function clearA() {
     props.setTypeAliment(null);
+    props.setRefresh(true);
+  }
+
+  function clearP() {
     props.setTypePlat(null);
     props.setRefresh(true);
   }
