@@ -20,56 +20,55 @@ function CardPlat(props) {
   var idModalDelete = "deletePlat";
 
   const [isCommandable, setIsCommandable] = useState(false);
-  const [aliment, setAliment] = useState(null);
+  const [listAliment, setListAliment] = useState(null);
+  const quantiteParIdAliment = new Map();
 
-  function getOneAliments(idA) {
-    const response = API.get("aliments/" + idA);
-    setAliment(response.data);
+  async function getAliments() {
+    const response = await API.get("aliments");
+    setListAliment(response.data);
   }
 
-  function GetIsCommandable() {
-    const listIsCommandable = [];
-    props.plat.aliments.map((ali) => {
-      getOneAliments(ali.idAliment);
-
-      const qteAliment = aliment?.quantite;
-      const qteAlimentPlat = ali.quantite;
-
-      if (!aliment) {
-        listIsCommandable.push(false);
-      } else if (aliment === null || qteAliment === 0 || qteAliment === null) {
-        listIsCommandable.push(false);
-      } else if (qteAlimentPlat > qteAliment) {
-        listIsCommandable.push(false);
-      } else if (qteAlimentPlat <= qteAliment) {
-        listIsCommandable.push(true);
-      }
-    });
-
-    console.log(listIsCommandable);
-
-    if (listIsCommandable.includes(false)) {
-      setIsCommandable(false);
+  function btn_Commander() {
+    if (isCommandable) {
+      return <button>Commander</button>;
     } else {
-      setIsCommandable(true);
+      return <button disabled>Commander</button>;
     }
   }
 
   useEffect(() => {
     if (!props.isAdmin) {
-      GetIsCommandable();
-    }
-  }, [true]);
+      getAliments();
 
-  function btn_Commander() {
-    if (isCommandable) {
-      //console.log(isCommandable);
-      return <button>Commander</button>;
-    } else {
-      //console.log(isCommandable);
-      return <button disabled>Commander</button>;
+      const listIsCommandable = [];
+
+      listAliment?.map((ali) => {
+        quantiteParIdAliment.set(ali._id, ali.quantite);
+      });
+
+      props.plat.aliments.map((ali) => {
+        if (!quantiteParIdAliment.has(ali.idAliment)) {
+          listIsCommandable.push(false);
+        } else {
+          var qteAliment = quantiteParIdAliment.get(ali.idAliment);
+
+          if (qteAliment === 0 || qteAliment === null) {
+            listIsCommandable.push(false);
+          } else if (ali.quantite > qteAliment) {
+            listIsCommandable.push(false);
+          } else if (ali.quantite <= qteAliment) {
+            listIsCommandable.push(true);
+          }
+        }
+      });
+
+      if (listIsCommandable.includes(false)) {
+        setIsCommandable(false);
+      } else {
+        setIsCommandable(true);
+      }
     }
-  }
+  }, [props.refresh]);
 
   return (
     <>

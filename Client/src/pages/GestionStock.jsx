@@ -15,8 +15,8 @@ function GestionStock() {
   var optsAliments = [];
   var optsPlats = [];
 
-  const [plats, setPlats] = React.useState(null);
-  const [aliments, setAliments] = React.useState(null);
+  const [plats, setPlats] = useState(null);
+  const [aliments, setAliments] = useState(null);
 
   const [refresh, setRefresh] = useState(false);
 
@@ -83,8 +83,18 @@ function GestionStock() {
     getOptsPlats();
   }
 
-  if (!plats) return null;
-  if (!aliments) return null;
+  if (!plats)
+    return (
+      <>
+        <h1>Pas de plats en stock ! 🍱</h1>
+      </>
+    );
+  if (!aliments)
+    return (
+      <>
+        <h1>Pas d'aliments en stock ! 🍱</h1>
+      </>
+    );
 
   return (
     <>

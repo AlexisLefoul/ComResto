@@ -47,7 +47,12 @@ function CarteMenu() {
     getOptsPlats();
   }
 
-  if (!plats) return null;
+  if (!plats)
+    return (
+      <>
+        <h1>Pas de plats disponibles ! 🤷‍♂️</h1>
+      </>
+    );
 
   return (
     <>
@@ -60,7 +65,12 @@ function CarteMenu() {
       <div className="global">
         <div className="content-box">
           {plats?.map((rec, index) => (
-            <CardPlat isAdmin={isAdmin} key={index} plat={rec}></CardPlat>
+            <CardPlat
+              isAdmin={isAdmin}
+              key={index}
+              plat={rec}
+              refresh={refresh}
+            ></CardPlat>
           ))}
         </div>
       </div>
