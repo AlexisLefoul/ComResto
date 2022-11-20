@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
 
+import API from "../app";
 import ModalUpdateP from "./ModalUpdateP";
 import ModalDelete from "./ModalDelete";
 import logo_supp from "../assets/delete.svg";
@@ -17,6 +18,58 @@ function CardPlat(props) {
   };
   var idModalUpdate = "updatePlat";
   var idModalDelete = "deletePlat";
+
+  const [isCommandable, setIsCommandable] = useState(false);
+  const [aliment, setAliment] = useState(null);
+
+  function getOneAliments(idA) {
+    const response = API.get("aliments/" + idA);
+    setAliment(response.data);
+  }
+
+  function GetIsCommandable() {
+    const listIsCommandable = [];
+    props.plat.aliments.map((ali) => {
+      getOneAliments(ali.idAliment);
+
+      const qteAliment = aliment?.quantite;
+      const qteAlimentPlat = ali.quantite;
+
+      if (!aliment) {
+        listIsCommandable.push(false);
+      } else if (aliment === null || qteAliment === 0 || qteAliment === null) {
+        listIsCommandable.push(false);
+      } else if (qteAlimentPlat > qteAliment) {
+        listIsCommandable.push(false);
+      } else if (qteAlimentPlat <= qteAliment) {
+        listIsCommandable.push(true);
+      }
+    });
+
+    console.log(listIsCommandable);
+
+    if (listIsCommandable.includes(false)) {
+      setIsCommandable(false);
+    } else {
+      setIsCommandable(true);
+    }
+  }
+
+  useEffect(() => {
+    if (!props.isAdmin) {
+      GetIsCommandable();
+    }
+  }, [true]);
+
+  function btn_Commander() {
+    if (isCommandable) {
+      //console.log(isCommandable);
+      return <button>Commander</button>;
+    } else {
+      //console.log(isCommandable);
+      return <button disabled>Commander</button>;
+    }
+  }
 
   return (
     <>
@@ -52,7 +105,7 @@ function CardPlat(props) {
               Modifier
             </button>
           ) : (
-            <button>Commander</button>
+            btn_Commander()
           )}
         </div>
       </article>

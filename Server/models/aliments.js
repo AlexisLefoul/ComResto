@@ -68,7 +68,7 @@ var Aliment = /** @class */ (function () {
             });
         });
     };
-    Aliment.getOnAliment = function (id) {
+    Aliment.getOneAliment = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
             return __generator(this, function (_a) {
@@ -78,7 +78,7 @@ var Aliment = /** @class */ (function () {
                             switch (_b.label) {
                                 case 0:
                                     _a = resolve;
-                                    return [4 /*yield*/, AlimentModel.find({ _id: id })];
+                                    return [4 /*yield*/, AlimentModel.findById({ _id: id })];
                                 case 1:
                                     _a.apply(void 0, [_b.sent()]);
                                     return [2 /*return*/];

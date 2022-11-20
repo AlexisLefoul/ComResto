@@ -6,9 +6,9 @@ export class ControlerAliment {
     res.send(listeAliments);
   }
 
-  public static async getOnAliments(req, res) {
+  public static async getOneAliments(req, res) {
     let alimentId: String = req.params.id;
-    let listeAliments = await Aliment.getOnAliment(alimentId);
+    let listeAliments = await Aliment.getOneAliment(alimentId);
     res.send(listeAliments);
   }
 

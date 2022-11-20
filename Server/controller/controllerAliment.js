@@ -55,14 +55,14 @@ var ControlerAliment = /** @class */ (function () {
             });
         });
     };
-    ControlerAliment.getOnAliments = function (req, res) {
+    ControlerAliment.getOneAliments = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
             var alimentId, listeAliments;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         alimentId = req.params.id;
-                        return [4 /*yield*/, aliments_1.Aliment.getOnAliment(alimentId)];
+                        return [4 /*yield*/, aliments_1.Aliment.getOneAliment(alimentId)];
                     case 1:
                         listeAliments = _a.sent();
                         res.send(listeAliments);

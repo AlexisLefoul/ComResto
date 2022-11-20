@@ -8,9 +8,9 @@ import HeaderNav from "../components/HeaderNav";
 
 function CarteMenu() {
   const isAdmin = false;
+
   const [refresh, setRefresh] = useState(false);
   const [plats, setPlats] = useState(null);
-  const [aliments, setAliments] = useState(null);
   const [typePlat, setTypePlat] = useState(null);
   var optsPlats = [];
 
@@ -21,12 +21,6 @@ function CarteMenu() {
       optsPlats.includes(op) ? null : optsPlats.push(op);
     });
     optsPlats.sort();
-  }
-
-  async function getAliments() {
-    const response = await API.get("aliments");
-    setAliments(response.data);
-    setRefresh(false);
   }
 
   async function getPlats() {

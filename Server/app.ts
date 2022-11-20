@@ -39,7 +39,7 @@ app.get("/", (req, res) => res.send("🏠"));
 // GET Aliments
 app.get("/aliments", (req, res) => ControlerAliment.getAliments(req, res));
 app.get("/aliments/:id", (req, res) =>
-  ControlerAliment.getOnAliments(req, res)
+  ControlerAliment.getOneAliments(req, res)
 );
 app.get("/aliments/type/:type", (req, res) =>
   ControlerAliment.getAlimentsParType(req, res)

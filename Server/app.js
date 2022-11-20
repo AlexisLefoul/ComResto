@@ -64,7 +64,7 @@ app.get("/", function (req, res) { return res.send("🏠"); });
 // GET Aliments
 app.get("/aliments", function (req, res) { return controllerAliment_1.ControlerAliment.getAliments(req, res); });
 app.get("/aliments/:id", function (req, res) {
-    return controllerAliment_1.ControlerAliment.getOnAliments(req, res);
+    return controllerAliment_1.ControlerAliment.getOneAliments(req, res);
 });
 app.get("/aliments/type/:type", function (req, res) {
     return controllerAliment_1.ControlerAliment.getAlimentsParType(req, res);

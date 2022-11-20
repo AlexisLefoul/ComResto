@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 const alimentSchema = new Schema({
-  nom: String, 
+  nom: String,
   type: String,
   quantite: String,
   date: { type: Date, default: Date.now },
@@ -14,9 +14,9 @@ export class Aliment {
       resolve(await AlimentModel.find());
     });
   }
-  public static async getOnAliment(id: String) {
+  public static async getOneAliment(id: String) {
     return new Promise(async (resolve) => {
-      resolve(await AlimentModel.find({ _id: id }));
+      resolve(await AlimentModel.findById({ _id: id }));
     });
   }
 
