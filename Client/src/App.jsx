@@ -8,6 +8,7 @@ import logo from "./assets/logo.png";
 
 import CarteMenu from "./pages/CarteMenu";
 import GestionStock from "./pages/GestionStock";
+import Login from "./pages/Login";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -41,6 +42,7 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
+        <Route path="/login" element={<Login />} />
         <Route path="cartemenu" element={<CarteMenu />} />
         <Route path="gestionstock" element={<GestionStock />} />
       </Routes>

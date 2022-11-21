@@ -70,6 +70,7 @@ function CarteMenu() {
               key={index}
               plat={rec}
               refresh={refresh}
+              setRefresh={setRefresh}
             ></CardPlat>
           ))}
         </div>

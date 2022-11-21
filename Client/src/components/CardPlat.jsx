@@ -4,6 +4,7 @@ import React from "react";
 import API from "../app";
 import ModalUpdateP from "./ModalUpdateP";
 import ModalDelete from "./ModalDelete";
+import ModalCommander from "./ModalCommander";
 import logo_supp from "../assets/delete.svg";
 
 function CardPlat(props) {
@@ -11,16 +12,20 @@ function CardPlat(props) {
   const handleOpen = () => setOpen(true);
   const [openD, setOpenD] = useState(false);
   const handleOpenD = () => setOpenD(true);
+  const [openC, setOpenC] = useState(false);
+  const handleOpenC = () => setOpenC(true);
   const handleClose = () => {
     setOpen(false);
     setOpenD(false);
+    setOpenC(false);
     props.setRefresh(true);
   };
   var idModalUpdate = "updatePlat";
   var idModalDelete = "deletePlat";
+  var idModalCommander = "commanderPlat";
 
   const [isCommandable, setIsCommandable] = useState(false);
-  const [listAliment, setListAliment] = useState(null);
+  const [listAliment, setListAliment] = useState();
   const quantiteParIdAliment = new Map();
 
   async function getAliments() {
@@ -28,9 +33,43 @@ function CardPlat(props) {
     setListAliment(response.data);
   }
 
+  listAliment?.map((ali) => {
+    quantiteParIdAliment.set(ali._id, {
+      quantite: ali.quantite,
+      type: ali.type,
+    });
+  });
+
+  function GetIsCommandable() {
+    const listIsCommandable = [];
+
+    props.plat.aliments.map((ali) => {
+      if (!quantiteParIdAliment.has(ali.idAliment)) {
+        listIsCommandable.push(false);
+        console.log("test1");
+      } else {
+        var qteAliment = quantiteParIdAliment.get(ali.idAliment).quantite;
+
+        if (qteAliment === 0 || qteAliment === null) {
+          listIsCommandable.push(false);
+        } else if (ali.quantite > qteAliment) {
+          listIsCommandable.push(false);
+        } else if (ali.quantite <= qteAliment) {
+          listIsCommandable.push(true);
+        }
+      }
+    });
+
+    if (listIsCommandable.includes(false)) {
+      setIsCommandable(false);
+    } else {
+      setIsCommandable(true);
+    }
+  }
+
   function btn_Commander() {
     if (isCommandable) {
-      return <button>Commander</button>;
+      return <button onClick={handleOpenC}>Commander</button>;
     } else {
       return <button disabled>Commander</button>;
     }
@@ -39,34 +78,9 @@ function CardPlat(props) {
   useEffect(() => {
     if (!props.isAdmin) {
       getAliments();
-
-      const listIsCommandable = [];
-
-      listAliment?.map((ali) => {
-        quantiteParIdAliment.set(ali._id, ali.quantite);
-      });
-
-      props.plat.aliments.map((ali) => {
-        if (!quantiteParIdAliment.has(ali.idAliment)) {
-          listIsCommandable.push(false);
-        } else {
-          var qteAliment = quantiteParIdAliment.get(ali.idAliment);
-
-          if (qteAliment === 0 || qteAliment === null) {
-            listIsCommandable.push(false);
-          } else if (ali.quantite > qteAliment) {
-            listIsCommandable.push(false);
-          } else if (ali.quantite <= qteAliment) {
-            listIsCommandable.push(true);
-          }
-        }
-      });
-
-      if (listIsCommandable.includes(false)) {
-        setIsCommandable(false);
-      } else {
-        setIsCommandable(true);
-      }
+    }
+    if (listAliment) {
+      GetIsCommandable();
     }
   }, [props.refresh]);
 
@@ -122,6 +136,13 @@ function CardPlat(props) {
         handleClose={handleClose}
         param={props.plat}
       ></ModalDelete>
+      <ModalCommander
+        idModal={idModalCommander}
+        isOpen={openC}
+        handleClose={handleClose}
+        param={props.plat}
+        mapAliments={quantiteParIdAliment}
+      ></ModalCommander>
     </>
   );
 }
