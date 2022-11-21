@@ -25,12 +25,14 @@ function CardPlat(props) {
   var idModalCommander = "commanderPlat";
 
   const [isCommandable, setIsCommandable] = useState(false);
-  const [listAliment, setListAliment] = useState();
+  const [listAliment, setListAliment] = useState(null);
+  const [refreshCard, setRefreshCard] = useState(false);
   const quantiteParIdAliment = new Map();
 
   async function getAliments() {
     const response = await API.get("aliments");
     setListAliment(response.data);
+    setRefreshCard(true);
   }
 
   listAliment?.map((ali) => {
@@ -46,7 +48,6 @@ function CardPlat(props) {
     props.plat.aliments.map((ali) => {
       if (!quantiteParIdAliment.has(ali.idAliment)) {
         listIsCommandable.push(false);
-        console.log("test1");
       } else {
         var qteAliment = quantiteParIdAliment.get(ali.idAliment).quantite;
 
@@ -78,11 +79,9 @@ function CardPlat(props) {
   useEffect(() => {
     if (!props.isAdmin) {
       getAliments();
-    }
-    if (listAliment) {
       GetIsCommandable();
     }
-  }, [props.refresh]);
+  }, [refreshCard]);
 
   return (
     <>

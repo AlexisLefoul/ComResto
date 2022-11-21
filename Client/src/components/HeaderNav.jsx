@@ -1,6 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import logo_add from "../assets/more.svg";
@@ -10,13 +9,13 @@ import ModalAddP from "./ModalAddP";
 import ModalAddA from "./ModalAddA";
 
 function HeaderNav(props) {
-  const [openA, setOpenA] = React.useState(false);
+  const [openA, setOpenA] = useState(false);
   const handleOpenA = () => setOpenA(true);
   const handleCloseA = () => {
     setOpenA(false);
     props.setRefresh(true);
   };
-  const [openP, setOpenP] = React.useState(false);
+  const [openP, setOpenP] = useState(false);
   const handleOpenP = () => setOpenP(true);
   const handleCloseP = () => {
     setOpenP(false);
@@ -70,7 +69,7 @@ function HeaderNav(props) {
     <>
       <div className="header">
         <div className="c-logo">
-          <Link to="/">
+          <Link to="/menu">
             <img src={logo} className="logo" alt="logo" />
           </Link>
         </div>

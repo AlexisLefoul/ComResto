@@ -1,9 +1,7 @@
-import { useState, useDispatch } from "react";
 import React from "react";
-import axios from "axios";
 import { createRoot } from "react-dom/client";
 import "./style/style.css";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 import logo from "./assets/logo.png";
 
 import CarteMenu from "./pages/CarteMenu";
@@ -19,7 +17,9 @@ function App() {
     <>
       <div className="header">
         <div className="c-logo">
-          <img src={logo} className="logo" alt="logo" />
+          <Link to="/">
+            <img src={logo} className="logo" alt="logo" />
+          </Link>
         </div>
       </div>
       <div>
@@ -41,8 +41,9 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Navigate to="login" />} />
+        <Route path="menu" element={<App />} />
+        <Route path="login" element={<Login />} />
         <Route path="cartemenu" element={<CarteMenu />} />
         <Route path="gestionstock" element={<GestionStock />} />
       </Routes>
