@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import logo_add from "../assets/more.svg";
@@ -9,6 +9,9 @@ import ModalAddP from "./ModalAddP";
 import ModalAddA from "./ModalAddA";
 
 function HeaderNav(props) {
+  const selectInputRefAliment = useRef();
+  const selectInputRefPlat = useRef();
+
   const [openA, setOpenA] = useState(false);
   const handleOpenA = () => setOpenA(true);
   const handleCloseA = () => {
@@ -65,6 +68,16 @@ function HeaderNav(props) {
     props.setRefresh(true);
   }
 
+  function goAliments() {
+    selectInputRefPlat.current.clearValue();
+    props.setIsAliment(true);
+  }
+
+  function goPlats() {
+    selectInputRefAliment.current.clearValue();
+    props.setIsAliment(false);
+  }
+
   return (
     <>
       <div className="header">
@@ -81,7 +94,7 @@ function HeaderNav(props) {
               <li
                 className={props.isAliment ? "li-onclick" : "li-onclick active"}
               >
-                <a onClick={() => props.setIsAliment(false)}>Plats</a>
+                <a onClick={() => goPlats()}>Plats</a>
               </li>
             ) : (
               <li className="li-notonclick">
@@ -95,7 +108,7 @@ function HeaderNav(props) {
                     props.isAliment ? "li-onclick active" : "li-onclick"
                   }
                 >
-                  <a onClick={() => props.setIsAliment(true)}>Aliments</a>
+                  <a onClick={() => goAliments()}>Aliments</a>
                 </li>
               </>
             ) : null}
@@ -111,6 +124,7 @@ function HeaderNav(props) {
                     options={typesAliment}
                     className="react-select-container"
                     classNamePrefix="react-select"
+                    ref={selectInputRefAliment}
                   ></Select>
                 </li>
                 {props.isAdmin ? (
@@ -135,6 +149,7 @@ function HeaderNav(props) {
                     options={typesPlat}
                     className="react-select-container"
                     classNamePrefix="react-select"
+                    ref={selectInputRefPlat}
                   ></Select>
                 </li>
                 {props.isAdmin ? (

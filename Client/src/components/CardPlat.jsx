@@ -1,26 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import React from "react";
 
-import API from "../app";
 import ModalUpdateP from "./ModalUpdateP";
 import ModalDelete from "./ModalDelete";
 import ModalCommander from "./ModalCommander";
 import logo_supp from "../assets/delete.svg";
 
 function CardPlat(props) {
-  const [refreshCard, setRefreshCard] = useState(false);
-
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const [openD, setOpenD] = useState(false);
   const handleOpenD = () => setOpenD(true);
   const [openC, setOpenC] = useState(false);
   const handleOpenC = () => setOpenC(true);
-  const handleCloseC = () => {
-    setOpenC(false);
-    props.setRefresh(true);
-    window.location.reload(false);
-  };
   const handleClose = () => {
     setOpen(false);
     setOpenD(false);
@@ -30,64 +22,6 @@ function CardPlat(props) {
   var idModalUpdate = "updatePlat";
   var idModalDelete = "deletePlat";
   var idModalCommander = "commanderPlat";
-
-  const [isCommandable, setIsCommandable] = useState(false);
-  const [listAliment, setListAliment] = useState(null);
-  const quantiteParIdAliment = new Map();
-
-  async function getAliments() {
-    const response = await API.get("aliments");
-    setListAliment(response.data);
-    setRefreshCard(true);
-  }
-
-  listAliment?.map((ali) => {
-    quantiteParIdAliment.set(ali._id, {
-      quantite: ali.quantite,
-      type: ali.type,
-    });
-  });
-
-  function GetIsCommandable() {
-    const listIsCommandable = [];
-
-    props.plat.aliments.map((ali) => {
-      if (!quantiteParIdAliment.has(ali.idAliment)) {
-        listIsCommandable.push(false);
-      } else {
-        var qteAliment = quantiteParIdAliment.get(ali.idAliment).quantite;
-
-        if (qteAliment === 0 || qteAliment === null) {
-          listIsCommandable.push(false);
-        } else if (ali.quantite > qteAliment) {
-          listIsCommandable.push(false);
-        } else if (ali.quantite <= qteAliment) {
-          listIsCommandable.push(true);
-        }
-      }
-    });
-
-    if (listIsCommandable.includes(false)) {
-      setIsCommandable(false);
-    } else {
-      setIsCommandable(true);
-    }
-  }
-
-  function btn_Commander() {
-    if (isCommandable) {
-      return <button onClick={handleOpenC}>Commander</button>;
-    } else {
-      return <button disabled>Commander</button>;
-    }
-  }
-
-  useEffect(() => {
-    if (!props.isAdmin) {
-      getAliments();
-      GetIsCommandable();
-    }
-  }, [refreshCard]);
 
   return (
     <>
@@ -122,8 +56,10 @@ function CardPlat(props) {
             <button data-target="updatePlat" onClick={handleOpen}>
               Modifier
             </button>
+          ) : props.isCommandable ? (
+            <button onClick={handleOpenC}>Commander</button>
           ) : (
-            btn_Commander()
+            <button disabled>Commander</button>
           )}
         </div>
       </article>
@@ -144,10 +80,9 @@ function CardPlat(props) {
       <ModalCommander
         idModal={idModalCommander}
         isOpen={openC}
-        handleCloseC={handleCloseC}
         handleClose={handleClose}
         param={props.plat}
-        mapAliments={quantiteParIdAliment}
+        mapAliments={props.quantiteParIdAliment}
       ></ModalCommander>
     </>
   );

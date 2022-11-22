@@ -358,10 +358,10 @@ label {
 #loginform {
   max-width: 500px;
   min-width: 300px;
-  max-height: 700px;
+  max-height: 500px;
   width: 30%;
   height: 60%;
-  margin: 100px auto;
+  margin: auto;
   background-color: #ffffff;
   border-radius: 25px;
   margin-right: 18%;
@@ -444,6 +444,9 @@ label {
 .login {
   display: flex;
   background-color: rgb(251, 242, 215);
+  height: 100%;
+  width: 100%;
+  position: fixed;
 }
 
 .login-logo {
@@ -455,3 +458,4 @@ label {
   height: 230px;
   width: 450px;
 }
+

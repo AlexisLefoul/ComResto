@@ -35,12 +35,57 @@ function CarteMenu() {
     setRefresh(false);
   }
 
+  const [listAliment, setListAliment] = useState(null);
+  const quantiteParIdAliment = new Map();
+
+  async function getAliments() {
+    const response = await API.get("aliments");
+    setListAliment(response.data);
+  }
+
+  listAliment?.map((ali) => {
+    quantiteParIdAliment.set(ali._id, {
+      quantite: ali.quantite,
+      type: ali.type,
+    });
+  });
+
+  function GetIsCommandable(plat) {
+    var isCommandable = false;
+    const listIsCommandable = [];
+
+    plat.aliments.map((ali) => {
+      if (!quantiteParIdAliment.has(ali.idAliment)) {
+        listIsCommandable.push(false);
+      } else {
+        var qteAliment = quantiteParIdAliment.get(ali.idAliment).quantite;
+
+        if (qteAliment === 0 || qteAliment === null) {
+          listIsCommandable.push(false);
+        } else if (ali.quantite > qteAliment) {
+          listIsCommandable.push(false);
+        } else if (ali.quantite <= qteAliment) {
+          listIsCommandable.push(true);
+        }
+      }
+    });
+
+    if (listIsCommandable.includes(false)) {
+      isCommandable = false;
+    } else {
+      isCommandable = true;
+    }
+
+    return isCommandable;
+  }
+
   useEffect(() => {
     if (typePlat !== null) {
       getPlatsParType();
     } else {
       getPlats();
     }
+    getAliments();
   }, [refresh]);
 
   if (plats !== null) {
@@ -71,6 +116,8 @@ function CarteMenu() {
               plat={rec}
               refresh={refresh}
               setRefresh={setRefresh}
+              isCommandable={GetIsCommandable(rec)}
+              quantiteParIdAliment={quantiteParIdAliment}
             ></CardPlat>
           ))}
         </div>

@@ -19,7 +19,7 @@ function Login() {
     }
   }, [state]);
   return (
-    <div className="login">
+    <div id="login" className="login">
       <div className="login-logo">
         <img src={logo} className="logo" alt="logo" />
       </div>

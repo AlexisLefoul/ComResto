@@ -16,7 +16,8 @@ function ModalCommander(props) {
         );
       });
     });
-    props.handleCloseC();
+    alert("Plat commandé ! 🍳");
+    props.handleClose();
   }
 
   return (
