@@ -11,11 +11,12 @@ function ModalCommander(props) {
         quantite: newQteAliment,
         type: props.mapAliments.get(ali.idAliment).type,
       }).then((response) => {
-        console.log(response.data);
+        console.log(
+          response.status === 204 ? "Aliment mis à jour !" : "Erreur de maj"
+        );
       });
     });
-    props.handleClose();
-    alert("Plat commandé !");
+    props.handleCloseC();
   }
 
   return (

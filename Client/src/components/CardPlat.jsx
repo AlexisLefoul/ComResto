@@ -8,12 +8,19 @@ import ModalCommander from "./ModalCommander";
 import logo_supp from "../assets/delete.svg";
 
 function CardPlat(props) {
+  const [refreshCard, setRefreshCard] = useState(false);
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const [openD, setOpenD] = useState(false);
   const handleOpenD = () => setOpenD(true);
   const [openC, setOpenC] = useState(false);
   const handleOpenC = () => setOpenC(true);
+  const handleCloseC = () => {
+    setOpenC(false);
+    props.setRefresh(true);
+    window.location.reload(false);
+  };
   const handleClose = () => {
     setOpen(false);
     setOpenD(false);
@@ -26,7 +33,6 @@ function CardPlat(props) {
 
   const [isCommandable, setIsCommandable] = useState(false);
   const [listAliment, setListAliment] = useState(null);
-  const [refreshCard, setRefreshCard] = useState(false);
   const quantiteParIdAliment = new Map();
 
   async function getAliments() {
@@ -138,6 +144,7 @@ function CardPlat(props) {
       <ModalCommander
         idModal={idModalCommander}
         isOpen={openC}
+        handleCloseC={handleCloseC}
         handleClose={handleClose}
         param={props.plat}
         mapAliments={quantiteParIdAliment}

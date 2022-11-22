@@ -444,7 +444,6 @@ label {
 .login {
   display: flex;
   background-color: rgb(251, 242, 215);
-  margin-top: 6%;
 }
 
 .login-logo {
