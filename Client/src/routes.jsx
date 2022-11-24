@@ -1,10 +1,7 @@
 import React from "react";
-import { Navigate, Routes, Route, BrowserRouter, Link } from "react-router-dom";
+import { Navigate, Routes, Route, BrowserRouter } from "react-router-dom";
 
-import logo from "./assets/logo.png";
-
-//history
-import { history } from "./helpers/history";
+import useAuth from "./helpers/setAuthToken";
 
 //pages
 import CarteMenu from "./pages/CarteMenu";
@@ -14,13 +11,14 @@ import MenuAdmin from "./pages/MenuAdmin";
 
 function hasJWT() {
   let flag = false;
-  localStorage.getItem("user-info") ? (flag = true) : (flag = false);
+  const { authed } = useAuth();
+  authed ? (flag = true) : (flag = false);
   return flag;
 }
 
 function RoutesPages() {
   return (
-    <BrowserRouter history={history}>
+    <BrowserRouter>
       <Routes>
         <Route path="menu" element={<MenuAdmin />} />
         <Route path="login" element={<Login />} />

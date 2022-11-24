@@ -61,28 +61,20 @@ function ModalUpdateP(props) {
     });
   }
 
-  /*useEffect(() => {
-    if (props.listAliments !== undefined) {
-      props.listAliments.map((ali) => {
-        itemP.aliments.map((element) => {
-          if (element.idAliment !== ali._id) {
-            opts.push({
-              id: ali._id,
-              value: ali.nom,
-              label: strUcFirst(ali.nom),
-            });
-          }
-        });
-      });
-      const optsAlis = [...new Set(opts)];
-      console.log(optsAlis);
-    }
-  }, [props.isOpen]);*/
+  const infoParIdAliment = new Map();
+  itemP.aliments?.map((ali) => {
+    infoParIdAliment.set(ali.idAliment, {
+      quantite: ali.quantite,
+      nom: ali.nom,
+    });
+  });
 
   if (props.listAliments !== undefined) {
-    props.listAliments.map((ali) =>
-      opts.push({ id: ali._id, value: ali.nom, label: strUcFirst(ali.nom) })
-    );
+    props.listAliments.map((ali) => {
+      if (!infoParIdAliment.has(ali._id)) {
+        opts.push({ id: ali._id, value: ali.nom, label: strUcFirst(ali.nom) });
+      }
+    });
   }
 
   function reset() {

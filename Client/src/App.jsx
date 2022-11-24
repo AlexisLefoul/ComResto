@@ -1,15 +1,12 @@
 import Routers from "./routes";
-import { setAuthToken } from "./helpers/setAuthToken.jsx";
+import useAuth from "./helpers/setAuthToken";
 
 function App() {
-  //check jwt token
-  const token = localStorage.getItem("token");
-  if (token) {
-    setAuthToken(token);
-  }
+  const { authed } = useAuth();
 
   return (
     <div>
+      {authed}
       <Routers />
     </div>
   );

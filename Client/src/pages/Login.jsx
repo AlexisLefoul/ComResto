@@ -3,10 +3,11 @@ import React from "react";
 import logo from "../assets/logo.png";
 
 import bcrypt from "bcryptjs";
-
 import API from "../api";
+import useAuth from "../helpers/setAuthToken";
 
 function Login() {
+  const { setLoginToken } = useAuth();
   const [formIncorrect, setFormIncorrect] = useState(false);
 
   const [identifiant, setIdentifiant] = useState("");
@@ -14,14 +15,24 @@ function Login() {
 
   const [user, setUser] = useState(null);
 
+  const loginAction = async () => {
+    const token = bcrypt.hashSync(
+      password + identifiant,
+      "$2a$10$CwTycUXWue0Thq9StjUM0u"
+    );
+    setLoginToken(token);
+    return token;
+  };
+
   async function handleSubmit() {
+    const token = await loginAction(identifiant, password);
     if (identifiant && password) {
       const response = await API.get("user/" + identifiant);
       setUser(response.data);
 
       if (bcrypt.compareSync(password, user.password)) {
         localStorage.setItem("user-info", JSON.stringify(user));
-
+        localStorage.setItem("token", JSON.stringify(token));
         if (user.role === "client") {
           window.location.href = "cartemenu";
         } else if (user.role === "admin") {
