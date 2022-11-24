@@ -112,6 +112,24 @@ function main() {
     });
 }
 main().catch(function (err) { return console.log(err); });
-var swaggerJSDoc = require('swagger-jsdoc');
-var swaggerUi = require('swagger-ui-express');
+var swaggerJSDoc = require("swagger-jsdoc");
+var swaggerUi = require("swagger-ui-express");
+var swaggerDefinition = {
+    openapi: "3.0.0",
+    info: {
+        title: "Express API for JSONPlaceholder",
+        version: "1.0.0",
+        description: "This is a REST API application made with Express. It retrieves data from JSONPlaceholder.",
+    },
+    servers: [
+        { url: "http://localhost:3000/", description: "Development server" },
+    ],
+};
+var options = {
+    swaggerDefinition: swaggerDefinition,
+    // Paths to files containing OpenAPI definitions
+    apis: ["./*.js", "./controller/*.js"],
+};
+var swaggerSpec = swaggerJSDoc(options);
+app.use("./docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 //# sourceMappingURL=app.js.map

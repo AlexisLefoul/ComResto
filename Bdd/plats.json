@@ -1,0 +1,189 @@
+[{
+  "_id": {
+    "$oid": "6373ebd6f26cd2fbf73c6a44"
+  },
+  "nom": "Pizza",
+  "type": "Plat",
+  "aliments": [
+    {
+      "nom": "Poulet",
+      "quantite": 2,
+      "idAliment": "6375657437faf81ca847525a",
+      "_id": {
+        "$oid": "637c01b5dd18bb3e4d1442eb"
+      }
+    },
+    {
+      "nom": "Cheddar",
+      "quantite": 2,
+      "idAliment": "63565c88c04699686b05efd5",
+      "_id": {
+        "$oid": "637c01b5dd18bb3e4d1442ec"
+      }
+    },
+    {
+      "nom": "Mozarella",
+      "quantite": 3,
+      "idAliment": "636959053855ed9141f0c578",
+      "_id": {
+        "$oid": "637c01b5dd18bb3e4d1442ed"
+      }
+    }
+  ],
+  "prix": 20.44,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "637534b037faf81ca8474489"
+  },
+  "nom": "Buger aux Pomme",
+  "type": "Plat",
+  "aliments": [
+    {
+      "nom": "Cheddar",
+      "quantite": 2,
+      "idAliment": "63565c88c04699686b05efd5",
+      "_id": {
+        "$oid": "637534b037faf81ca847448b"
+      }
+    },
+    {
+      "nom": "Pomme",
+      "quantite": 1,
+      "idAliment": "636ad033b976e1303feeefb1",
+      "_id": {
+        "$oid": "637534b037faf81ca847448c"
+      }
+    },
+    {
+      "nom": "Poulet",
+      "quantite": 1,
+      "idAliment": "636953930636d0309ebf477b",
+      "_id": {
+        "$oid": "6375357b37faf81ca84745ba"
+      }
+    },
+    {
+      "nom": "Pain à Buger",
+      "quantite": 4,
+      "idAliment": "637565a037faf81ca84752be",
+      "_id": {
+        "$oid": "6376a1b81c2a3ca835006ddd"
+      }
+    }
+  ],
+  "prix": 12.32,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "637537d937faf81ca8474657"
+  },
+  "nom": "Tarte aux fruits",
+  "type": "Dessert",
+  "aliments": [
+    {
+      "nom": "Pomme",
+      "quantite": 2,
+      "idAliment": "637a0878ab017e10dca5798c",
+      "_id": {
+        "$oid": "637d139a229230f1f56d0361"
+      }
+    },
+    {
+      "nom": "Pêche",
+      "quantite": 2,
+      "idAliment": "637a092dab017e10dca579ae",
+      "_id": {
+        "$oid": "637d139a229230f1f56d0362"
+      }
+    }
+  ],
+  "prix": 8.45,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63755cc737faf81ca8474d9a"
+  },
+  "nom": "Salade d'avocat",
+  "type": "Entrée",
+  "aliments": [
+    {
+      "nom": "Avocat",
+      "quantite": 2,
+      "idAliment": "63696f3e3855ed9141f0c5ac",
+      "_id": {
+        "$oid": "63755cc737faf81ca8474d9c"
+      }
+    },
+    {
+      "nom": "Salade",
+      "quantite": 1,
+      "idAliment": "637d591a229230f1f56d2dbc",
+      "_id": {
+        "$oid": "637d5931229230f1f56d2e19"
+      }
+    }
+  ],
+  "prix": 12.12,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "637a0987ab017e10dca57a58"
+  },
+  "nom": "Salade de fruits",
+  "type": "Dessert",
+  "aliments": [
+    {
+      "nom": "Pastèque",
+      "quantite": 2,
+      "idAliment": "637a086cab017e10dca5796c",
+      "_id": {
+        "$oid": "637a0987ab017e10dca57a59"
+      }
+    },
+    {
+      "nom": "Pomme",
+      "quantite": 1,
+      "idAliment": "637a0878ab017e10dca5798c",
+      "_id": {
+        "$oid": "637a0987ab017e10dca57a5a"
+      }
+    },
+    {
+      "nom": "Pêche",
+      "quantite": 5,
+      "idAliment": "637a092dab017e10dca579ae",
+      "_id": {
+        "$oid": "637a0987ab017e10dca57a5b"
+      }
+    }
+  ],
+  "prix": 12.5,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "637a0ba0ab017e10dca57aad"
+  },
+  "nom": "Pizza Pomme",
+  "type": "Plat",
+  "aliments": [
+    {
+      "nom": "Pate à pizza",
+      "quantite": 1,
+      "idAliment": "637565b637faf81ca84752e0",
+      "_id": {
+        "$oid": "637a0ba0ab017e10dca57aae"
+      }
+    },
+    {
+      "nom": "Pomme",
+      "quantite": 2,
+      "idAliment": "637a0878ab017e10dca5798c",
+      "_id": {
+        "$oid": "637a0ba0ab017e10dca57aaf"
+      }
+    }
+  ],
+  "prix": 20.2,
+  "__v": 0
+}]

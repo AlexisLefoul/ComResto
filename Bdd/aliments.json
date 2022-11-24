@@ -1,0 +1,144 @@
+[{
+  "_id": {
+    "$oid": "63565c88c04699686b05efd5"
+  },
+  "nom": "Cheddar",
+  "type": "Fromage",
+  "quantite": "558",
+  "date": {
+    "$date": {
+      "$numberLong": "1669143191208"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "636959053855ed9141f0c578"
+  },
+  "nom": "Mozarella",
+  "type": "Fromage",
+  "quantite": "95",
+  "date": {
+    "$date": {
+      "$numberLong": "1669143191222"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63696f3e3855ed9141f0c5ac"
+  },
+  "nom": "Avocat",
+  "type": "Légume",
+  "quantite": "91",
+  "date": {
+    "$date": {
+      "$numberLong": "1669213357311"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6375657437faf81ca847525a"
+  },
+  "nom": "Poulet",
+  "type": "Viande",
+  "quantite": "48",
+  "date": {
+    "$date": {
+      "$numberLong": "1669143191206"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6375658737faf81ca847527c"
+  },
+  "nom": "Steak haché",
+  "type": "Viande",
+  "quantite": "50",
+  "date": {
+    "$date": {
+      "$numberLong": "1668638087171"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "637565a037faf81ca84752be"
+  },
+  "nom": "Pain à Buger",
+  "type": "Epicerie",
+  "quantite": "50",
+  "date": {
+    "$date": {
+      "$numberLong": "1668638112637"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "637565b637faf81ca84752e0"
+  },
+  "nom": "Pate à pizza",
+  "type": "Epicerie",
+  "quantite": "9",
+  "date": {
+    "$date": {
+      "$numberLong": "1669070568640"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "637a086cab017e10dca5796c"
+  },
+  "nom": "Pastèque",
+  "type": "Fruit",
+  "quantite": "5",
+  "date": {
+    "$date": {
+      "$numberLong": "1669070677986"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "637a0878ab017e10dca5798c"
+  },
+  "nom": "Pomme",
+  "type": "Fruit",
+  "quantite": "4",
+  "date": {
+    "$date": {
+      "$numberLong": "1669217006300"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "637a092dab017e10dca579ae"
+  },
+  "nom": "Pêche",
+  "type": "Fruit",
+  "quantite": "2",
+  "date": {
+    "$date": {
+      "$numberLong": "1669217024020"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "637d591a229230f1f56d2dbc"
+  },
+  "nom": "Salade",
+  "type": "Légume",
+  "quantite": "2",
+  "date": {
+    "$date": {
+      "$numberLong": "1669217019267"
+    }
+  },
+  "__v": 0
+}]
