@@ -112,4 +112,6 @@ function main() {
     });
 }
 main().catch(function (err) { return console.log(err); });
+var swaggerJSDoc = require('swagger-jsdoc');
+var swaggerUi = require('swagger-ui-express');
 //# sourceMappingURL=app.js.map

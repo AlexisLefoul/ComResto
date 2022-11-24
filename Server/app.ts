@@ -85,3 +85,9 @@ async function main() {
   console.log("Connexion mongoose ok");
 }
 main().catch((err) => console.log(err));
+
+
+const swaggerJSDoc= require('swagger-jsdoc');
+const swaggerUi= require('swagger-ui-express');
+
+
