@@ -1,6 +1,4 @@
-﻿# ComResto Alexis Lefoul
-
-![This is an image](Client\src\assets\logo.png)
+﻿# ComResto 🍱
 
 1.  Récupérer le projet sur Github : git clone https://github.com/AlexisLefoul/ComResto.git
 
@@ -62,3 +60,4 @@
         - Après avoir renseigné les informations, faire un double click sur le bouton "Connexion"
 ```   
 
+###### Alexis Lefoul
