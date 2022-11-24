@@ -1,5 +1,7 @@
 ﻿# ComResto 🍱
 
+### Initialisation du projet 
+
 1.  Récupérer le projet sur Github : git clone https://github.com/AlexisLefoul/ComResto.git
 
 2.  Ajouter les dépendances  du Front-End :
@@ -59,5 +61,12 @@
         - Veuillez contacter l'adresse suivante pour les identifiants : comresto@support.com
         - Après avoir renseigné les informations, faire un double click sur le bouton "Connexion"
 ```   
+
+
+### Documentation de l'api
+
+1. Lancer le server du projet (étape 5)
+2. Dans un navigateur mettez cette url : ``` localhost:3000/docs ```
+
 
 ###### Alexis Lefoul

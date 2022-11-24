@@ -131,5 +131,5 @@ var options = {
     apis: ["./*.js", "./controller/*.js"],
 };
 var swaggerSpec = swaggerJSDoc(options);
-app.use("./docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 //# sourceMappingURL=app.js.map
