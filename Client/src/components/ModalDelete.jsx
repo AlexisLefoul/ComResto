@@ -1,4 +1,4 @@
-import API from "../app";
+import API from "../api";
 
 function ModalDelete(props) {
   function supprimer() {

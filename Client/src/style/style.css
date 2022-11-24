@@ -459,3 +459,38 @@ label {
   width: 450px;
 }
 
+.errorForm {
+  text-align: center;
+  --color: red;
+}
+
+.e-logo {
+  margin: 60px;
+}
+
+.menu-admin {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  margin: auto;
+  margin-top: 10%;
+}
+
+.card-admin {
+  margin: auto;
+  width: 400px;
+  height: 400px;
+  background-color: #fbf2d7;
+  text-align: center;
+  border: solid 1.5px #876dc5b9;
+  border-radius: 30px;
+  text-decoration: none;
+}
+
+.card-admin:hover {
+  box-shadow: 0px 0px 19px 2px #876dc585;
+}
+
+.card-admin > h2 {
+  margin-top: 40%;
+}

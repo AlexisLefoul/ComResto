@@ -1,7 +1,7 @@
 import { useState } from "react";
 import logo_add from "../assets/more.svg";
 import logo_supp from "../assets/delete.svg";
-import API from "../app";
+import API from "../api";
 
 import ModalAddAlimentOnPlat from "./ModalAddAlimentOnPlat";
 

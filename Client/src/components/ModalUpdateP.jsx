@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import API from "../app";
+import API from "../api";
 
 import logo_add from "../assets/more.svg";
 import logo_supp from "../assets/delete.svg";

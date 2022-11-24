@@ -1,4 +1,4 @@
-import API from "../app";
+import API from "../api";
 
 function ModalCommander(props) {
   function Commander() {

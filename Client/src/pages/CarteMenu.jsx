@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import React from "react";
 import latinize from "latinize";
 
-import API from "../app";
+import API from "../api";
 import CardPlat from "../components/CardPlat";
 import HeaderNav from "../components/HeaderNav";
 

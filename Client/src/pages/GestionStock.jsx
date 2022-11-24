@@ -1,8 +1,8 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import latinize from "latinize";
 
-import API from "../app";
+import API from "../api";
 import CardPlat from "../components/CardPlat";
 import CardAliment from "../components/CardAliment";
 import HeaderNav from "../components/HeaderNav";
@@ -61,7 +61,7 @@ function GestionStock() {
     optsPlats.sort();
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (typeAliment !== null) {
       getAlimentsParType();
     } else {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import API from "../app";
+import API from "../api";
 
 function ModalAddA(props) {
   const [itemA, setItemA] = useState({

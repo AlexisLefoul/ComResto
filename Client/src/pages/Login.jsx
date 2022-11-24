@@ -1,23 +1,38 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import React from "react";
 import logo from "../assets/logo.png";
-import { useNavigate } from "react-router-dom";
 
-import API from "../app";
+import bcrypt from "bcryptjs";
+
+import API from "../api";
 
 function Login() {
-  const [state, setState] = useState(false);
-  const navigate = useNavigate();
+  const [formIncorrect, setFormIncorrect] = useState(false);
 
-  function connexion() {
-    setState(true);
+  const [identifiant, setIdentifiant] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [user, setUser] = useState(null);
+
+  async function handleSubmit() {
+    if (identifiant && password) {
+      const response = await API.get("user/" + identifiant);
+      setUser(response.data);
+
+      if (bcrypt.compareSync(password, user.password)) {
+        localStorage.setItem("user-info", JSON.stringify(user));
+
+        if (user.role === "client") {
+          window.location.href = "cartemenu";
+        } else if (user.role === "admin") {
+          window.location.href = "menu";
+        }
+      }
+    } else {
+      setFormIncorrect(true);
+    }
   }
 
-  useEffect(() => {
-    if (state) {
-      navigate("/menu");
-    }
-  }, [state]);
   return (
     <div id="login" className="login">
       <div className="login-logo">
@@ -26,19 +41,38 @@ function Login() {
 
       <div id="loginform">
         <h2 id="headerTitle">Connexion</h2>
+        {formIncorrect ? (
+          <h3 className="errorForm">Identifiant ou mot de passe incorrect !</h3>
+        ) : null}
         <div>
           <div className="row">
             <label>Identifiant</label>
-            <input type="text" placeholder="Identifiant" />
+            <input
+              type="text"
+              placeholder="Identifiant"
+              value={identifiant}
+              onChange={(e) => setIdentifiant(e.target.value)}
+            />
           </div>
           <div className="row">
             <label>Mot de passe</label>
-            <input type="text" placeholder="Mot de passe" />
+            <input
+              type="password"
+              placeholder="Mot de passe"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
           <div id="button" className="row">
-            <button onClick={connexion} style={{ padding: 0 }}>
-              Connexion
-            </button>
+            {!identifiant || !password ? (
+              <button disabled style={{ padding: 0 }}>
+                Connexion
+              </button>
+            ) : (
+              <button onClick={handleSubmit} style={{ padding: 0 }}>
+                Connexion
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -47,28 +81,3 @@ function Login() {
 }
 
 export default Login;
-
-/*const userInfo = localStorage.getItem('user-info');
-    
-async function signUp() 
-{
-    let item = {name, password, email};
-    console.warn(item);
-    let result = await fetch("http://127.0.0.1:8000/api/register",{
-            method: 'POST',
-            body: JSON.stringify(item),
-            headers: {
-                "content-type": 'application/json',
-                "Accept": 'application/json'}
-        })
-    result  = await result.json();
-    console.warn('result', result);
-    localStorage.setItem("user-info",JSON.stringify(result));
-    navigate("/add");
-}
-
-useEffect(() => {
-    if (userInfo){
-     navigate("/add")   
-    }
-},[])*/

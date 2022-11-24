@@ -1,6 +1,7 @@
 import { Schema } from "mongoose";
 import { ControlerAliment } from "./controller/controllerAliment";
 import { ControlerPlat } from "./controller/controllerPlats";
+import { ControlerUser } from "./controller/controllerUser";
 
 const mongoose = require("mongoose");
 const express = require("express");
@@ -51,6 +52,9 @@ app.get("/plats/type/:type", (req, res) =>
   ControlerPlat.getPlatsParType(req, res)
 );
 
+// GET Utilisateur
+app.get("/user/:identifiant", (req, res) => ControlerUser.getUser(req, res));
+
 // POST Aliments
 app.post("/aliments/add", (req, res) =>
   ControlerAliment.insertAliment(req, res)
@@ -62,6 +66,9 @@ app.put("/aliments/update/:id", (req, res) =>
 // POST Plats
 app.post("/plats/add", (req, res) => ControlerPlat.insertPlat(req, res));
 app.put("/plats/update/:id", (req, res) => ControlerPlat.updatePlat(req, res));
+
+// POST User
+app.post("/user/add", (req, res) => ControlerUser.insertUser(req, res));
 
 // DELETE
 app.delete("/aliments/:id", (req, res) =>

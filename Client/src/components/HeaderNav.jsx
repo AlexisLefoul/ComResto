@@ -3,12 +3,15 @@ import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import logo_add from "../assets/more.svg";
+import logo_logout from "../assets/exit.svg";
 import Select from "react-select";
 
 import ModalAddP from "./ModalAddP";
 import ModalAddA from "./ModalAddA";
 
 function HeaderNav(props) {
+  const userInfo = JSON.parse(localStorage.getItem("user-info"));
+
   const selectInputRefAliment = useRef();
   const selectInputRefPlat = useRef();
 
@@ -78,13 +81,27 @@ function HeaderNav(props) {
     props.setIsAliment(false);
   }
 
+  function disconnect() {
+    localStorage.clear();
+    window.location.href = "/";
+  }
+
   return (
     <>
       <div className="header">
         <div className="c-logo">
-          <Link to="/menu">
-            <img src={logo} className="logo" alt="logo" />
-          </Link>
+          {userInfo.role === "client" ? (
+            <Link>
+              <img src={logo} className="logo" alt="logo" />
+            </Link>
+          ) : (
+            <Link to="/menu">
+              <img src={logo} className="logo" alt="logo" />
+            </Link>
+          )}
+        </div>
+        <div className="e-logo" onClick={disconnect}>
+          <img src={logo_logout} className="logo-add" alt="logo" />
         </div>
       </div>
       <div className="nav">

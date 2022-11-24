@@ -38,6 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var controllerAliment_1 = require("./controller/controllerAliment");
 var controllerPlats_1 = require("./controller/controllerPlats");
+var controllerUser_1 = require("./controller/controllerUser");
 var mongoose = require("mongoose");
 var express = require("express");
 var bodyParser = require("body-parser");
@@ -75,6 +76,8 @@ app.get("/plats/:id", function (req, res) { return controllerPlats_1.ControlerPl
 app.get("/plats/type/:type", function (req, res) {
     return controllerPlats_1.ControlerPlat.getPlatsParType(req, res);
 });
+// GET Utilisateur
+app.get("/user/:identifiant", function (req, res) { return controllerUser_1.ControlerUser.getUser(req, res); });
 // POST Aliments
 app.post("/aliments/add", function (req, res) {
     return controllerAliment_1.ControlerAliment.insertAliment(req, res);
@@ -85,6 +88,8 @@ app.put("/aliments/update/:id", function (req, res) {
 // POST Plats
 app.post("/plats/add", function (req, res) { return controllerPlats_1.ControlerPlat.insertPlat(req, res); });
 app.put("/plats/update/:id", function (req, res) { return controllerPlats_1.ControlerPlat.updatePlat(req, res); });
+// POST User
+app.post("/user/add", function (req, res) { return controllerUser_1.ControlerUser.insertUser(req, res); });
 // DELETE
 app.delete("/aliments/:id", function (req, res) {
     return controllerAliment_1.ControlerAliment.deleteAliment(req, res);
