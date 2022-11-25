@@ -8,34 +8,21 @@
 ```
         - Ouvrez un terminal PowerShell
         - Allez dans le dossier ComResto puis Client : cd ComResto\Client
-        - Ajoutez les dépendances  :
-            yarn add    axios
-                        bcryptjs
-                        latinize"
-                        react
-                        react-dom
-                        react-router-dom
-                        react-select
-                        react-token-auth
+        - Ajoutez les dépendances via : yarn ou npm i
 ```       
 
 3.  Ajouter les dépendances  du Back-End :
 ```   
         - Ouvrez un terminal PowerShell
         - Allez dans le dossier ComResto puis Server : cd ComResto\Server
-        - Ajoutez les dépendances  :
-            yarn add    bcrypt
-                        express
-                        mongoose
-                        swagger-jsdoc
-                        swagger-ui-express
-                        typescript
+        - Ajoutez les dépendances via : yarn ou npm i
+        
         - Puis Ajoutez "supervisor" en global :
             yarn global add supervisor
 ```   
 4.  Récupérer la base de données :
 ```   
-        - Installez MongoDBCompass si vous ne l'avez pas déjà
+        - Installez MongoDBCompass ou un lecteur de base de données MongoDB
         - Créez nouvelle Database, du nom : Gestion_stock
         - Insérez les collections situées dans le dossier Bdd du projet
 ```   
@@ -49,7 +36,7 @@
         - Ouvrez un nouveau terminal GitBash
         - Lancez le process node : Supervisor app
 ```   
-6.  Lancer l'app Web :
+6.  Lancer l'app Web (Info pratique: en admin le logo peu être cliquer) :
 ```   
         - Dans un terminal PowerShell
         - Allez dans le dossier ComResto puis Client : cd ComResto\Client
